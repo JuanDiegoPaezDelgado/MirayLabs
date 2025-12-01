@@ -22,7 +22,7 @@ import AutomationLanding from './components/AutomationLanding';
 import ContactLanding from './components/ContactLanding';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import AIAssistant from './components/AIAssistant';
+//import AIAssistant from './components/AIAssistant';
 import StarBackground from './components/StarBackground';
 
 const App: React.FC = () => {
@@ -378,7 +378,7 @@ const App: React.FC = () => {
         </main>
 
         <Footer onNavigate={handleNavigation} theme={theme} />
-        <AIAssistant />
+      //  <AIAssistant />
       </div>
     </div>
   );
