@@ -1,13 +1,13 @@
 
 import React, { useState } from 'react';
-import { 
-  ArrowRight, 
-  Check, 
-  Globe, 
-  Zap, 
-  Users, 
-  Layout, 
-  BarChart, 
+import {
+  ArrowRight,
+  Check,
+  Globe,
+  Zap,
+  Users,
+  Layout,
+  BarChart,
   MessageCircle,
   Plus,
   Minus,
@@ -22,7 +22,7 @@ import AutomationLanding from './components/AutomationLanding';
 import ContactLanding from './components/ContactLanding';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import AIAssistant from './components/AIAssistant';
+// import AIAssistant from './components/AIAssistant';
 import StarBackground from './components/StarBackground';
 
 const App: React.FC = () => {
@@ -47,7 +47,7 @@ const App: React.FC = () => {
 
   const renderHome = () => (
     <div className="animate-fade-in">
-       {/* --- HERO SECTION --- */}
+      {/* --- HERO SECTION --- */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
         {/* Background Stars/Particles (Only visible in dark mode) */}
         <div className="absolute inset-0 z-0 dark:block bg-white dark:bg-[#050505] transition-colors duration-300">
@@ -64,14 +64,14 @@ const App: React.FC = () => {
             Creando <span className="font-serif italic font-light text-gray-500 dark:text-gray-300">juntos</span> <br />
             un universo de soluciones
           </h1>
-          
+
           <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed transition-colors">
-            Ayudamos a startups y empresas consolidadas a lanzar productos digitales excepcionales, 
+            Ayudamos a startups y empresas consolidadas a lanzar productos digitales excepcionales,
             combinando diseño de vanguardia con desarrollo robusto.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <button 
+            <button
               onClick={() => handleNavigation('contact')}
               className="bg-black dark:bg-[#1a1a1a] text-white border border-transparent dark:border-white/10 px-8 py-3.5 rounded-full font-medium hover:opacity-80 dark:hover:bg-[#252525] transition-all w-full sm:w-auto"
             >
@@ -103,7 +103,7 @@ const App: React.FC = () => {
             </div>
             {/* UPDATED TEXT AS REQUESTED */}
             <p className="text-gray-600 dark:text-gray-400 max-w-md text-sm leading-relaxed transition-colors">
-              Impulsa tu crecimiento con un ecosistema digital completo: Desarrollo Web de alto impacto, 
+              Impulsa tu crecimiento con un ecosistema digital completo: Desarrollo Web de alto impacto,
               Software a Medida escalable y Staffing de talento TI especializado.
             </p>
           </div>
@@ -118,7 +118,7 @@ const App: React.FC = () => {
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
                 Diseñamos y desarrollamos experiencias web a medida que convierten visitantes en clientes.
               </p>
-              <button 
+              <button
                 onClick={() => handleNavigation('websites')}
                 className="inline-flex items-center text-blue-600 dark:text-primary-500 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
               >
@@ -126,8 +126,8 @@ const App: React.FC = () => {
               </button>
             </div>
 
-             {/* Service 2: Software a Medida */}
-             <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-purple-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-purple-500/20 transform hover:-translate-y-2">
+            {/* Service 2: Software a Medida */}
+            <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-purple-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-purple-500/20 transform hover:-translate-y-2">
               <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-gray-300">
                 <Code size={24} strokeWidth={1.5} />
               </div>
@@ -135,7 +135,7 @@ const App: React.FC = () => {
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
                 Aplicaciones web, móviles y SaaS robustos diseñados para escalar con tu negocio.
               </p>
-              <button 
+              <button
                 onClick={() => handleNavigation('custom-software')}
                 className="inline-flex items-center text-blue-600 dark:text-primary-500 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
               >
@@ -152,7 +152,7 @@ const App: React.FC = () => {
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
                 Aumenta tu equipo con el top 1% de talento TI. Desarrolladores listos para integrarse.
               </p>
-              <button 
+              <button
                 onClick={() => handleNavigation('staffing')}
                 className="inline-flex items-center text-blue-600 dark:text-primary-500 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
               >
@@ -169,7 +169,7 @@ const App: React.FC = () => {
               <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
                 Optimiza procesos repetitivos y escala operaciones con agentes inteligentes.
               </p>
-              <button 
+              <button
                 onClick={() => handleNavigation('automation')}
                 className="inline-flex items-center text-blue-600 dark:text-primary-500 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
               >
@@ -196,7 +196,7 @@ const App: React.FC = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Plan 1: Básico */}
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-blue-500/20 hover:border-blue-500/30 dark:hover:border-blue-500/30 animate-fade-in" style={{animationDelay: '0.1s'}}>
+            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-blue-500/20 hover:border-blue-500/30 dark:hover:border-blue-500/30 animate-fade-in" style={{ animationDelay: '0.1s' }}>
               <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Básico</h3>
               <div className="flex items-baseline gap-1 mb-4">
                 <span className="text-3xl font-bold text-gray-900 dark:text-white">$799.000</span>
@@ -208,7 +208,7 @@ const App: React.FC = () => {
               <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
                 Solicitar Básico
               </button>
-              
+
               <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
                 <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> 5 Secciones</li>
                 <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Entrega en 5 días</li>
@@ -220,7 +220,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Plan 2: Profesional */}
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-purple-500/20 hover:border-purple-500/30 dark:hover:border-purple-500/30 animate-fade-in" style={{animationDelay: '0.2s'}}>
+            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-purple-500/20 hover:border-purple-500/30 dark:hover:border-purple-500/30 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Profesional</h3>
               <div className="flex items-baseline gap-1 mb-4">
                 <span className="text-3xl font-bold text-gray-900 dark:text-white">$1.400.000</span>
@@ -232,7 +232,7 @@ const App: React.FC = () => {
               <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
                 Solicitar Profesional
               </button>
-              
+
               <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
                 <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Todo lo de Básico</li>
                 <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> 8 Secciones</li>
@@ -243,7 +243,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Plan 3: Premium */}
-            <div className="bg-gray-50 dark:bg-[#161616] rounded-2xl p-6 border border-purple-500/30 flex flex-col relative overflow-hidden shadow-md dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-purple-500/30 animate-fade-in" style={{animationDelay: '0.3s'}}>
+            <div className="bg-gray-50 dark:bg-[#161616] rounded-2xl p-6 border border-purple-500/30 flex flex-col relative overflow-hidden shadow-md dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-purple-500/30 animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <div className="absolute top-0 right-0 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">Popular</div>
               <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Premium</h3>
               <div className="flex items-baseline gap-1 mb-4">
@@ -256,7 +256,7 @@ const App: React.FC = () => {
               <button onClick={() => handleNavigation('contact')} className="w-full py-3 bg-black dark:bg-white/10 border border-transparent dark:border-white/20 rounded-lg text-sm font-bold text-white hover:opacity-80 dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
                 Solicitar Premium
               </button>
-              
+
               <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
                 <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Todo lo de Profesional</li>
                 <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> 10 Secciones</li>
@@ -268,7 +268,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Plan 4: Corporativo */}
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-green-500/20 hover:border-green-500/30 dark:hover:border-green-500/30 animate-fade-in" style={{animationDelay: '0.4s'}}>
+            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-green-500/20 hover:border-green-500/30 dark:hover:border-green-500/30 animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Corporativo</h3>
               <div className="flex items-baseline gap-1 mb-4">
                 <span className="text-3xl font-bold text-gray-900 dark:text-white">A cotizar</span>
@@ -279,7 +279,7 @@ const App: React.FC = () => {
               <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
                 Contactar para Corporativo
               </button>
-              
+
               <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
                 <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Todo lo de Premium</li>
                 <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Secciones a medida</li>
@@ -289,7 +289,7 @@ const App: React.FC = () => {
               </ul>
             </div>
           </div>
-          
+
           <div className="mt-12 text-center">
             <button onClick={() => handleNavigation('websites')} className="text-gray-500 dark:text-gray-400 text-sm hover:text-black dark:hover:text-white underline underline-offset-4 transition-colors">
               Comparar todos los planes
@@ -322,7 +322,7 @@ const App: React.FC = () => {
               }
             ].map((faq, index) => (
               <div key={index} className="border-b border-gray-200 dark:border-white/10 last:border-0 transition-colors">
-                <button 
+                <button
                   onClick={() => toggleFaq(index)}
                   className="w-full flex justify-between items-center py-6 text-left hover:text-black dark:hover:text-white transition-colors text-gray-700 dark:text-gray-200"
                 >
@@ -349,9 +349,9 @@ const App: React.FC = () => {
           <div className="relative z-10">
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 transition-colors">¿Listo para empezar?</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-10 text-lg transition-colors">Hablemos sobre cómo podemos ayudarte a alcanzar tus metas.</p>
-            
+
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-      
+
               <button onClick={() => handleNavigation('contact')} className="bg-black dark:bg-white text-white dark:text-black border border-transparent dark:border-white/20 px-8 py-3.5 rounded-lg font-bold hover:opacity-80 dark:hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                 Solicitar Demo
               </button>
@@ -366,7 +366,7 @@ const App: React.FC = () => {
     <div className={`min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'dark' : ''}`}>
       <div className={`${theme === 'dark' ? 'bg-[#050505]' : 'bg-white'} ${theme === 'dark' ? 'text-white' : 'text-gray-900'} min-h-screen`}>
         <Navbar onNavigate={handleNavigation} theme={theme} toggleTheme={toggleTheme} />
-        
+
         <main>
           {currentPage === 'home' && renderHome()}
           {currentPage === 'websites' && <WebsitesLanding onNavigate={handleNavigation} theme={theme} />}
@@ -378,7 +378,7 @@ const App: React.FC = () => {
         </main>
 
         <Footer onNavigate={handleNavigation} theme={theme} />
-        <AIAssistant />
+        {/* <AIAssistant /> */}
       </div>
     </div>
   );
