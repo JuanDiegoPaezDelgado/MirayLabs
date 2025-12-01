@@ -199,7 +199,7 @@ const App: React.FC = () => {
             <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-blue-500/20 hover:border-blue-500/30 dark:hover:border-blue-500/30 animate-fade-in" style={{ animationDelay: '0.1s' }}>
               <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Básico</h3>
               <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">$799.000</span>
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">$999.000</span>
                 <span className="text-xs text-gray-500">COP</span>
               </div>
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
@@ -223,7 +223,7 @@ const App: React.FC = () => {
             <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-purple-500/20 hover:border-purple-500/30 dark:hover:border-purple-500/30 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Profesional</h3>
               <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">$1.400.000</span>
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">$1.600.000</span>
                 <span className="text-xs text-gray-500">COP</span>
               </div>
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
@@ -247,7 +247,7 @@ const App: React.FC = () => {
               <div className="absolute top-0 right-0 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">Popular</div>
               <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Premium</h3>
               <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">$2.300.000</span>
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">$2.500.000</span>
                 <span className="text-xs text-gray-500">COP</span>
               </div>
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">

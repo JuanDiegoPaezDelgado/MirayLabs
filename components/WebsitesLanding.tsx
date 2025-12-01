@@ -1,13 +1,13 @@
 
 import React, { useState } from 'react';
-import { 
-  ArrowRight, 
-  BarChart, 
-  Globe, 
-  Layout, 
-  Smartphone, 
-  Shield, 
-  Zap, 
+import {
+  ArrowRight,
+  BarChart,
+  Globe,
+  Layout,
+  Smartphone,
+  Shield,
+  Zap,
   Search,
   Code,
   Database,
@@ -31,7 +31,7 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
       {/* --- HERO SECTION --- */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 bg-white dark:bg-[#050505]">
         <div className="absolute inset-0 z-0 bg-gray-50 dark:bg-[#0a0a0a]">
-           <div className="hidden dark:block stars absolute inset-0"></div>
+          <div className="hidden dark:block stars absolute inset-0"></div>
         </div>
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-gray-900 dark:text-white leading-[1.1]">
@@ -42,13 +42,13 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
             Desde páginas de aterrizaje impactantes hasta e-commerce robustos, diseñamos y desarrollamos experiencias digitales a medida que impulsan el crecimiento de tu negocio.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <button 
+            <button
               onClick={() => onNavigate('contact')}
               className="bg-gray-900 text-white dark:bg-[#1a1a1a] dark:text-white border border-gray-300 dark:border-white/10 px-8 py-3.5 rounded-full font-medium hover:bg-black dark:hover:bg-gray-800 transition-all w-full sm:w-auto"
             >
               Calcular Presupuesto
             </button>
-            <button 
+            <button
               onClick={() => onNavigate('contact')}
               className="bg-white dark:bg-transparent text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 px-8 py-3.5 rounded-full font-bold hover:bg-gray-100 dark:hover:bg-[#111] transition-colors w-full sm:w-auto"
             >
@@ -62,10 +62,10 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
       <section className="py-24 px-6 bg-gray-50 dark:bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
-             <h2 className="text-4xl font-bold text-gray-900 dark:text-white">Construimos la Solución Web Perfecta para Ti</h2>
-             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Cada negocio es único. Por eso, no ofrecemos soluciones genéricas, sino experiencias web a medida.</p>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white">Construimos la Solución Web Perfecta para Ti</h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Cada negocio es único. Por eso, no ofrecemos soluciones genéricas, sino experiencias web a medida.</p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { title: 'Tiendas E-commerce', desc: 'Plataformas de venta online seguras, rápidas y optimizadas para la conversión.', icon: <Layout /> },
@@ -118,14 +118,14 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
         </div>
       </section>
 
-       {/* --- PROCESS --- */}
-       <section className="py-24 px-6 bg-white dark:bg-[#050505]">
+      {/* --- PROCESS --- */}
+      <section className="py-24 px-6 bg-white dark:bg-[#050505]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Nuestro Proceso Probado</h2>
             <p className="text-gray-600 dark:text-gray-400">Transparencia y colaboración en cada paso del camino.</p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-16 relative">
             {/* Center Line (Hidden on mobile) */}
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2"></div>
@@ -160,101 +160,101 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Tecnologías que Impulsan Nuestros Proyectos</h2>
           <p className="text-gray-600 dark:text-gray-500 text-sm mb-12">Utilizamos un stack tecnológico moderno para construir sitios rápidos y seguros.</p>
-          
+
           <div className="flex flex-wrap justify-center gap-12 opacity-40 grayscale">
-             <span className="text-xl font-bold text-gray-900 dark:text-white">Next.js</span>
-             <span className="text-xl font-bold text-gray-900 dark:text-white">React</span>
-             <span className="text-xl font-bold text-gray-900 dark:text-white">TypeScript</span>
-             <span className="text-xl font-bold text-gray-900 dark:text-white">Tailwind</span>
-             <span className="text-xl font-bold text-gray-900 dark:text-white">Node.js</span>
-             <span className="text-xl font-bold text-gray-900 dark:text-white">Vercel</span>
-             <span className="text-xl font-bold text-gray-900 dark:text-white">AWS</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">Next.js</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">React</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">TypeScript</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">Tailwind</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">Node.js</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">Vercel</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">AWS</span>
           </div>
         </div>
       </section>
 
       {/* --- PRICING TABLE --- */}
       <section className="py-24 px-6 bg-gray-50 dark:bg-[#0a0a0a]">
-         <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-               <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Planes web a tu medida</h2>
-            </div>
-            
-            <div className="overflow-x-auto">
-              <div className="min-w-[900px]">
-                {/* Header Row */}
-                <div className="grid grid-cols-5 gap-4 mb-8">
-                  <div className="col-span-1 flex items-end pb-4">
-                    <span className="font-bold text-lg text-gray-900 dark:text-white">Característica</span>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Planes web a tu medida</h2>
+          </div>
+
+          <div className="overflow-x-auto">
+            <div className="min-w-[900px]">
+              {/* Header Row */}
+              <div className="grid grid-cols-5 gap-4 mb-8">
+                <div className="col-span-1 flex items-end pb-4">
+                  <span className="font-bold text-lg text-gray-900 dark:text-white">Característica</span>
+                </div>
+                {[
+                  { name: 'Básico', price: '999.000', sub: 'Negocios que quieren estar online rápido', highlight: false },
+                  { name: 'Profesional', price: '1.600.000', sub: 'Pymes que buscan captar más clientes', highlight: false },
+                  { name: 'Premium', price: '2.500.000', sub: 'Empresas que priorizan conversión', highlight: true },
+                  { name: 'Corporativo', price: 'A cotizar', sub: 'Proyectos a medida y escalables', highlight: false },
+                ].map((plan, i) => (
+                  <div key={i} className={`col-span-1 p-6 rounded-t-xl text-center flex flex-col justify-end ${plan.highlight ? 'bg-[#2e1065] border-t border-x border-purple-500/30' : ''}`}>
+                    <h3 className="font-bold text-gray-900 dark:text-white text-lg">{plan.name}</h3>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-2 h-8">{plan.sub}</p>
+                    <div className="text-xl font-bold text-gray-900 dark:text-white mb-4">{plan.price} <span className="text-xs font-normal text-gray-600 dark:text-gray-400">COP</span></div>
+                    <button
+                      onClick={() => onNavigate('contact')}
+                      className={`w-full py-2 rounded text-xs font-bold transition-colors ${plan.highlight ? 'bg-purple-600 text-gray-900 dark:text-white hover:bg-purple-700' : 'border border-white/20 text-gray-900 dark:text-white hover:bg-white hover:text-black'}`}
+                    >
+                      {plan.price === 'A cotizar' ? 'Contactar' : `Solicitar ${plan.name}`}
+                    </button>
                   </div>
-                  {[
-                    { name: 'Básico', price: '799.000', sub: 'Negocios que quieren estar online rápido', highlight: false },
-                    { name: 'Profesional', price: '1.400.000', sub: 'Pymes que buscan captar más clientes', highlight: false },
-                    { name: 'Premium', price: '2.300.000', sub: 'Empresas que priorizan conversión', highlight: true },
-                    { name: 'Corporativo', price: 'A cotizar', sub: 'Proyectos a medida y escalables', highlight: false },
-                  ].map((plan, i) => (
-                    <div key={i} className={`col-span-1 p-6 rounded-t-xl text-center flex flex-col justify-end ${plan.highlight ? 'bg-[#2e1065] border-t border-x border-purple-500/30' : ''}`}>
-                       <h3 className="font-bold text-gray-900 dark:text-white text-lg">{plan.name}</h3>
-                       <p className="text-xs text-gray-600 dark:text-gray-400 mb-2 h-8">{plan.sub}</p>
-                       <div className="text-xl font-bold text-gray-900 dark:text-white mb-4">{plan.price} <span className="text-xs font-normal text-gray-600 dark:text-gray-400">COP</span></div>
-                       <button 
-                         onClick={() => onNavigate('contact')}
-                         className={`w-full py-2 rounded text-xs font-bold transition-colors ${plan.highlight ? 'bg-purple-600 text-gray-900 dark:text-white hover:bg-purple-700' : 'border border-white/20 text-gray-900 dark:text-white hover:bg-white hover:text-black'}`}
-                        >
-                         {plan.price === 'A cotizar' ? 'Contactar' : `Solicitar ${plan.name}`}
-                       </button>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Rows Group: General */}
-                <div className="mb-8">
-                   <div className="text-xs font-bold text-gray-600 dark:text-gray-500 uppercase tracking-wider mb-4 px-4">General</div>
-                   {[
-                     { label: 'Secciones', vals: ['5 secciones', '8 secciones', '10 secciones', 'A definir'] },
-                     { label: 'Diseño', vals: ['Plantilla optimizada', 'Más personalización', '100% personalizado', 'Custom FX'] },
-                     { label: 'Formularios', vals: ['Contacto simple', 'Avanzado', 'Optimizado conversión', 'A medida'] },
-                   ].map((row, i) => (
-                     <div key={i} className="grid grid-cols-5 gap-4 py-4 border-b border-white/5 px-4 hover:bg-white/5 transition-colors">
-                        <div className="col-span-1 text-sm font-medium text-gray-700 dark:text-gray-300">{row.label}</div>
-                        {row.vals.map((val, j) => (
-                          <div key={j} className={`col-span-1 text-sm text-center ${j === 2 ? 'font-semibold text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>{val}</div>
-                        ))}
-                     </div>
-                   ))}
-                </div>
-
-                {/* Rows Group: Técnico */}
-                <div className="mb-8">
-                   <div className="text-xs font-bold text-gray-600 dark:text-gray-500 uppercase tracking-wider mb-4 px-4">Técnico</div>
-                   {[
-                     { label: 'SEO', vals: ['Básico', 'Básico + keywords', 'SEO Avanzado', 'Técnico + Auditoría'] },
-                     { label: 'Analytics', vals: ['GA Básico', 'Google Maps + GA', 'Eventos Clave', 'Tracking Ads listo'] },
-                   ].map((row, i) => (
-                     <div key={i} className="grid grid-cols-5 gap-4 py-4 border-b border-white/5 px-4 hover:bg-white/5 transition-colors">
-                        <div className="col-span-1 text-sm font-medium text-gray-700 dark:text-gray-300">{row.label}</div>
-                        {row.vals.map((val, j) => (
-                          <div key={j} className={`col-span-1 text-sm text-center ${j === 2 ? 'font-semibold text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>{val}</div>
-                        ))}
-                     </div>
-                   ))}
-                </div>
-                 
-                 {/* Rows Group: Extra */}
-                <div className="mb-8">
-                   <div className="text-xs font-bold text-gray-600 dark:text-gray-500 uppercase tracking-wider mb-4 px-4">Extras Incluidos</div>
-                   <div className="grid grid-cols-5 gap-4 py-4 border-b border-white/5 px-4 hover:bg-white/5 transition-colors">
-                        <div className="col-span-1 text-sm font-medium text-gray-700 dark:text-gray-300">Extra</div>
-                        <div className="col-span-1 text-sm text-center text-gray-600 dark:text-gray-400">SSL + Hosting (1 año)</div>
-                        <div className="col-span-1 text-sm text-center text-gray-600 dark:text-gray-400">Asesoría correo</div>
-                        <div className="col-span-1 text-sm text-center font-semibold text-gray-900 dark:text-white bg-purple-900/20 py-2 rounded">Copywriting + Multi-idioma</div>
-                        <div className="col-span-1 text-sm text-center text-gray-600 dark:text-gray-400">Integraciones + A/B Testing</div>
-                   </div>
-                </div>
-
+                ))}
               </div>
+
+              {/* Rows Group: General */}
+              <div className="mb-8">
+                <div className="text-xs font-bold text-gray-600 dark:text-gray-500 uppercase tracking-wider mb-4 px-4">General</div>
+                {[
+                  { label: 'Secciones', vals: ['5 secciones', '8 secciones', '10 secciones', 'A definir'] },
+                  { label: 'Diseño', vals: ['Plantilla optimizada', 'Más personalización', '100% personalizado', 'Custom FX'] },
+                  { label: 'Formularios', vals: ['Contacto simple', 'Avanzado', 'Optimizado conversión', 'A medida'] },
+                ].map((row, i) => (
+                  <div key={i} className="grid grid-cols-5 gap-4 py-4 border-b border-white/5 px-4 hover:bg-white/5 transition-colors">
+                    <div className="col-span-1 text-sm font-medium text-gray-700 dark:text-gray-300">{row.label}</div>
+                    {row.vals.map((val, j) => (
+                      <div key={j} className={`col-span-1 text-sm text-center ${j === 2 ? 'font-semibold text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>{val}</div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+
+              {/* Rows Group: Técnico */}
+              <div className="mb-8">
+                <div className="text-xs font-bold text-gray-600 dark:text-gray-500 uppercase tracking-wider mb-4 px-4">Técnico</div>
+                {[
+                  { label: 'SEO', vals: ['Básico', 'Básico + keywords', 'SEO Avanzado', 'Técnico + Auditoría'] },
+                  { label: 'Analytics', vals: ['GA Básico', 'Google Maps + GA', 'Eventos Clave', 'Tracking Ads listo'] },
+                ].map((row, i) => (
+                  <div key={i} className="grid grid-cols-5 gap-4 py-4 border-b border-white/5 px-4 hover:bg-white/5 transition-colors">
+                    <div className="col-span-1 text-sm font-medium text-gray-700 dark:text-gray-300">{row.label}</div>
+                    {row.vals.map((val, j) => (
+                      <div key={j} className={`col-span-1 text-sm text-center ${j === 2 ? 'font-semibold text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>{val}</div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+
+              {/* Rows Group: Extra */}
+              <div className="mb-8">
+                <div className="text-xs font-bold text-gray-600 dark:text-gray-500 uppercase tracking-wider mb-4 px-4">Extras Incluidos</div>
+                <div className="grid grid-cols-5 gap-4 py-4 border-b border-white/5 px-4 hover:bg-white/5 transition-colors">
+                  <div className="col-span-1 text-sm font-medium text-gray-700 dark:text-gray-300">Extra</div>
+                  <div className="col-span-1 text-sm text-center text-gray-600 dark:text-gray-400">SSL + Hosting (1 año)</div>
+                  <div className="col-span-1 text-sm text-center text-gray-600 dark:text-gray-400">Asesoría correo</div>
+                  <div className="col-span-1 text-sm text-center font-semibold text-gray-900 dark:text-white bg-purple-900/20 py-2 rounded">Copywriting + Multi-idioma</div>
+                  <div className="col-span-1 text-sm text-center text-gray-600 dark:text-gray-400">Integraciones + A/B Testing</div>
+                </div>
+              </div>
+
             </div>
-         </div>
+          </div>
+        </div>
       </section>
 
       {/* --- FAQ --- */}
@@ -264,14 +264,14 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Preguntas Frecuentes sobre Sitios Web</h2>
           </div>
           <div className="space-y-4">
-             {[
-               { q: "¿Cuánto tiempo tarda en estar listo mi sitio web?", a: "El tiempo de entrega varía según el plan. Nuestro plan 'Básico' puede estar listo en tan solo 5 días hábiles, mientras que un plan 'Corporativo' a medida puede tardar entre 4 y 6 semanas." },
-               { q: "¿El hosting y el dominio están incluidos?", a: "Sí, todos nuestros planes incluyen el primer año de dominio (.com o .co) y hosting de alta velocidad con certificado SSL incluido." },
-               { q: "¿Podré actualizar el contenido de mi sitio web yo mismo?", a: "Por supuesto. Implementamos un CMS (Gestor de Contenidos) amigable para que puedas cambiar textos e imágenes sin tocar código." },
-               { q: "¿Qué pasa después de que mi sitio web esté en línea?", a: "Ofrecemos soporte post-lanzamiento para asegurar que todo funcione correctamente. También tenemos planes de mantenimiento opcionales." }
-             ].map((faq, index) => (
+            {[
+              { q: "¿Cuánto tiempo tarda en estar listo mi sitio web?", a: "El tiempo de entrega varía según el plan. Nuestro plan 'Básico' puede estar listo en tan solo 5 días hábiles, mientras que un plan 'Corporativo' a medida puede tardar entre 4 y 6 semanas." },
+              { q: "¿El hosting y el dominio están incluidos?", a: "Sí, todos nuestros planes incluyen el primer año de dominio (.com o .co) y hosting de alta velocidad con certificado SSL incluido." },
+              { q: "¿Podré actualizar el contenido de mi sitio web yo mismo?", a: "Por supuesto. Implementamos un CMS (Gestor de Contenidos) amigable para que puedas cambiar textos e imágenes sin tocar código." },
+              { q: "¿Qué pasa después de que mi sitio web esté en línea?", a: "Ofrecemos soporte post-lanzamiento para asegurar que todo funcione correctamente. También tenemos planes de mantenimiento opcionales." }
+            ].map((faq, index) => (
               <div key={index} className="border-b border-white/10 last:border-0">
-                <button 
+                <button
                   onClick={() => toggleFaq(index)}
                   className="w-full flex justify-between items-center py-6 text-left transition-colors text-gray-800 dark:text-white hover:text-gray-900"
                 >
@@ -294,7 +294,7 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
 
 // Helper Icon
 const UserCardIcon = (props: any) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
 )
 
 export default WebsitesLanding;
