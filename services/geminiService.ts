@@ -1,4 +1,4 @@
-import { GoogleGenAI, Chat } from "@google/genai";
+/*import { GoogleGenAI, Chat } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
@@ -30,3 +30,4 @@ export const sendMessageToGemini = async (chat: Chat, message: string) => {
     throw error;
   }
 };
+*/
