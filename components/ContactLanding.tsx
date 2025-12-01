@@ -85,7 +85,7 @@ const ContactLanding: React.FC<{ theme?: 'dark' | 'light' }> = ({ theme = 'dark'
                            <div className="w-12 h-12 bg-gray-700 rounded-full mb-4 overflow-hidden">
                               <img src="/rumana.jpg" alt="Avatar" className="w-full h-full object-cover" />
                            </div>
-                           <p className="text-gray-600 dark:text-gray-400 text-sm font-medium">Cristian Muñoz</p>
+                           <p className="text-gray-600 dark:text-gray-400 text-sm font-medium">Gabriela Stoica</p>
                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">1 hour Meeting</h2>
                            <p className="text-gray-600 dark:text-gray-400 text-sm mt-2">Let's build the future</p>
                         </div>
@@ -107,7 +107,7 @@ const ContactLanding: React.FC<{ theme?: 'dark' | 'light' }> = ({ theme = 'dark'
                         <button onClick={() => setStep('calendar')} className="mb-6 w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 text-gray-600 dark:text-gray-400">
                            <ChevronLeft size={20} />
                         </button>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm font-medium">Cristian Muñoz</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm font-medium">Gabriela Stoica</p>
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white mt-1">1 hour Meeting</h2>
                         <div className="mt-6 text-gray-600 dark:text-gray-400 text-sm space-y-3">
                            <div className="flex items-center gap-2 text-purple-400 font-medium">
