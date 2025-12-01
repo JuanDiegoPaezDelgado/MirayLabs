@@ -378,7 +378,7 @@ const App: React.FC = () => {
         </main>
 
         <Footer onNavigate={handleNavigation} theme={theme} />
-      //  <AIAssistant />
+      /*  <AIAssistant />*/
       </div>
     </div>
   );
