@@ -27,30 +27,30 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
   };
 
   return (
-    <div className={`animate-fade-in ${isDark ? 'dark' : ''} bg-white dark:bg-[#050505] text-gray-900 dark:text-gray-900 dark:text-white`}>
+    <div className={`animate-fade-in ${isDark ? 'dark' : ''} bg-white dark:bg-[#050505] text-gray-900 dark:text-white`}>
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden bg-white dark:bg-white dark:bg-[#050505]">
-        <div className="absolute inset-0 z-0 bg-gray-50 dark:bg-transparent">
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 bg-white dark:bg-[#050505]">
+        <div className="absolute inset-0 z-0 bg-gray-50 dark:bg-[#0a0a0a]">
            <div className="hidden dark:block stars absolute inset-0"></div>
         </div>
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-gray-900 dark:text-gray-900 dark:text-white leading-[1.1]">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-gray-900 dark:text-white leading-[1.1]">
             Creamos Sitios Web que <br />
-            <span className="font-serif italic font-light text-gray-600 dark:text-gray-700 dark:text-gray-300">Convierten</span> Visitantes en Clientes.
+            <span className="font-serif italic font-light text-gray-600 dark:text-gray-300">Convierten</span> Visitantes en Clientes.
           </h1>
-          <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
             Desde páginas de aterrizaje impactantes hasta e-commerce robustos, diseñamos y desarrollamos experiencias digitales a medida que impulsan el crecimiento de tu negocio.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <button 
               onClick={() => onNavigate('contact')}
-              className="bg-gray-900 dark:bg-[#1a1a1a] text-gray-900 dark:text-white border border-gray-300 dark:border-white/10 px-8 py-3.5 rounded-full font-medium hover:bg-black dark:hover:bg-gray-200 dark:bg-[#252525] transition-all w-full sm:w-auto"
+              className="bg-gray-900 text-white dark:bg-[#1a1a1a] dark:text-white border border-gray-300 dark:border-white/10 px-8 py-3.5 rounded-full font-medium hover:bg-black dark:hover:bg-gray-800 transition-all w-full sm:w-auto"
             >
               Calcular Presupuesto
             </button>
             <button 
               onClick={() => onNavigate('contact')}
-              className="bg-white dark:bg-gray-200 text-gray-900 dark:text-black px-8 py-3.5 rounded-full font-bold hover:bg-gray-100 dark:hover:bg-gray-300 transition-colors w-full sm:w-auto"
+              className="bg-white dark:bg-transparent text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 px-8 py-3.5 rounded-full font-bold hover:bg-gray-100 dark:hover:bg-[#111] transition-colors w-full sm:w-auto"
             >
               Agendar Asesoría
             </button>
@@ -59,11 +59,11 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
       </section>
 
       {/* --- SOLUTIONS GRID --- */}
-      <section className="py-24 px-6 bg-white dark:bg-white dark:bg-[#050505]">
+      <section className="py-24 px-6 bg-gray-50 dark:bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
-             <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-900 dark:text-white">Construimos la Solución Web Perfecta para Ti</h2>
-             <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Cada negocio es único. Por eso, no ofrecemos soluciones genéricas, sino experiencias web a medida.</p>
+             <h2 className="text-4xl font-bold text-gray-900 dark:text-white">Construimos la Solución Web Perfecta para Ti</h2>
+             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Cada negocio es único. Por eso, no ofrecemos soluciones genéricas, sino experiencias web a medida.</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -75,12 +75,12 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
               { title: 'Portafolios y Marca Personal', desc: 'Muestra tu trabajo de una manera impactante y profesional.', icon: <UserCardIcon /> },
               { title: 'Blogs y Contenido', desc: 'Sistemas de gestión de contenido (CMS) flexibles y optimizados para SEO.', icon: <Database /> },
             ].map((item, i) => (
-              <div key={i} className="bg-gray-100 dark:bg-[#111] p-8 rounded-2xl border border-gray-200 dark:border-white/5 hover:border-purple-500/30 transition-colors group">
+              <div key={i} className="bg-white dark:bg-[#111] p-8 rounded-2xl border border-gray-200 dark:border-white/5 hover:border-purple-500/30 transition-colors group">
                 <div className="text-purple-400 mb-6 group-hover:scale-110 transition-transform duration-300">
                   {React.cloneElement(item.icon as React.ReactElement<any>, { size: 32, strokeWidth: 1.5 })}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-900 dark:text-white mb-3">{item.title}</h3>
-                <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{item.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -88,11 +88,11 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
       </section>
 
       {/* --- PHILOSOPHY --- */}
-      <section className="py-24 px-6 bg-gray-50 dark:bg-gray-50 dark:bg-gray-50 dark:bg-gray-50 dark:bg-[#0a0a0a]">
+      <section className="py-24 px-6 bg-gray-50 dark:bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-900 dark:text-white mb-4">Nuestra Filosofía de Desarrollo</h2>
-            <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400">No solo construimos sitios web; creamos activos digitales que trabajan para tu negocio.</p>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Nuestra Filosofía de Desarrollo</h2>
+            <p className="text-gray-600 dark:text-gray-400">No solo construimos sitios web; creamos activos digitales que trabajan para tu negocio.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-12">
@@ -105,12 +105,12 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
               { title: 'Seguridad por Diseño', desc: 'Implementamos las mejores prácticas de seguridad en cada capa.', icon: <Shield /> },
             ].map((item, i) => (
               <div key={i} className="flex gap-4">
-                <div className="w-12 h-12 bg-gray-100 dark:bg-[#1a1a1a] rounded-lg flex items-center justify-center shrink-0 border border-gray-200 dark:border-white/5 text-gray-600 dark:text-gray-700 dark:text-gray-300">
+                <div className="w-12 h-12 bg-gray-100 dark:bg-[#1a1a1a] rounded-lg flex items-center justify-center shrink-0 border border-gray-200 dark:border-white/5 text-gray-600 dark:text-gray-300">
                   {React.cloneElement(item.icon as React.ReactElement<any>, { size: 20 })}
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 dark:text-gray-900 dark:text-white text-lg mb-2">{item.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">{item.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -156,7 +156,7 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
       </section>
 
       {/* --- TECH STACK --- */}
-      <section className="py-20 px-6 bg-gray-50 dark:bg-gray-50 dark:bg-[#0a0a0a] border-y border-gray-200 dark:border-white/5">
+      <section className="py-20 px-6 bg-gray-50 dark:bg-[#0a0a0a] border-y border-gray-200 dark:border-white/5">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Tecnologías que Impulsan Nuestros Proyectos</h2>
           <p className="text-gray-600 dark:text-gray-500 text-sm mb-12">Utilizamos un stack tecnológico moderno para construir sitios rápidos y seguros.</p>
@@ -174,7 +174,7 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
       </section>
 
       {/* --- PRICING TABLE --- */}
-      <section className="py-24 px-6 bg-gray-50 dark:bg-gray-50 dark:bg-gray-50 dark:bg-[#0a0a0a]">
+      <section className="py-24 px-6 bg-gray-50 dark:bg-[#0a0a0a]">
          <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
                <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Planes web a tu medida</h2>
@@ -273,7 +273,7 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
               <div key={index} className="border-b border-white/10 last:border-0">
                 <button 
                   onClick={() => toggleFaq(index)}
-                  className="w-full flex justify-between items-center py-6 text-left hover:text-gray-900 dark:text-white transition-colors text-gray-800 dark:text-gray-200"
+                  className="w-full flex justify-between items-center py-6 text-left transition-colors text-gray-800 dark:text-white hover:text-gray-900"
                 >
                   <span className="font-bold text-lg pr-8">{faq.q}</span>
                   {activeFaq === index ? <Minus size={20} className="text-gray-600 dark:text-gray-500 shrink-0" /> : <Plus size={20} className="text-gray-600 dark:text-gray-500 shrink-0" />}
