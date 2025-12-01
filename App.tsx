@@ -23,11 +23,12 @@ import ContactLanding from './components/ContactLanding';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AIAssistant from './components/AIAssistant';
+import StarBackground from './components/StarBackground';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<'home' | 'websites' | 'company' | 'staffing' | 'custom-software' | 'automation' | 'contact'>('home');
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   const toggleFaq = (index: number) => {
     setActiveFaq(activeFaq === index ? null : index);
@@ -49,8 +50,10 @@ const App: React.FC = () => {
        {/* --- HERO SECTION --- */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
         {/* Background Stars/Particles (Only visible in dark mode) */}
-        <div className="absolute inset-0 z-0 bg-white dark:bg-[#050505] transition-colors duration-300">
-          <div className="hidden dark:block stars absolute inset-0"></div>
+        <div className="absolute inset-0 z-0 dark:block bg-white dark:bg-[#050505] transition-colors duration-300">
+          <div className="hidden dark:block">
+            <StarBackground />
+          </div>
           <div className="hidden dark:block stars absolute inset-0 animate-pulse-slow" style={{ backgroundPosition: '50px 50px', opacity: 0.5 }}></div>
           {/* Light Mode Gradient */}
           <div className="dark:hidden absolute inset-0 bg-gradient-to-b from-blue-50 to-white"></div>
@@ -107,7 +110,7 @@ const App: React.FC = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Service 1: Sitios Web */}
-            <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/10 transition-colors group flex flex-col shadow-sm dark:shadow-none">
+            <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-blue-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-blue-500/20 transform hover:-translate-y-2">
               <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-gray-300">
                 <Globe size={24} strokeWidth={1.5} />
               </div>
@@ -124,7 +127,7 @@ const App: React.FC = () => {
             </div>
 
              {/* Service 2: Software a Medida */}
-             <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/10 transition-colors group flex flex-col shadow-sm dark:shadow-none">
+             <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-purple-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-purple-500/20 transform hover:-translate-y-2">
               <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-gray-300">
                 <Code size={24} strokeWidth={1.5} />
               </div>
@@ -141,7 +144,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Service 3: Staffing */}
-            <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/10 transition-colors group flex flex-col shadow-sm dark:shadow-none">
+            <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-green-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-green-500/20 transform hover:-translate-y-2">
               <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-gray-300">
                 <Users size={24} strokeWidth={1.5} />
               </div>
@@ -158,7 +161,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Service 4: Automation (NEW) */}
-            <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/10 transition-colors group flex flex-col shadow-sm dark:shadow-none">
+            <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-orange-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-orange-500/20 transform hover:-translate-y-2">
               <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-gray-300">
                 <Bot size={24} strokeWidth={1.5} />
               </div>
@@ -193,7 +196,7 @@ const App: React.FC = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Plan 1: Básico */}
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-colors">
+            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-blue-500/20 hover:border-blue-500/30 dark:hover:border-blue-500/30 animate-fade-in" style={{animationDelay: '0.1s'}}>
               <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Básico</h3>
               <div className="flex items-baseline gap-1 mb-4">
                 <span className="text-3xl font-bold text-gray-900 dark:text-white">$799.000</span>
@@ -202,7 +205,7 @@ const App: React.FC = () => {
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
                 Ideal para negocios que quieren estar online rápido y de forma económica.
               </p>
-              <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors mb-8">
+              <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
                 Solicitar Básico
               </button>
               
@@ -217,7 +220,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Plan 2: Profesional */}
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-colors">
+            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-purple-500/20 hover:border-purple-500/30 dark:hover:border-purple-500/30 animate-fade-in" style={{animationDelay: '0.2s'}}>
               <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Profesional</h3>
               <div className="flex items-baseline gap-1 mb-4">
                 <span className="text-3xl font-bold text-gray-900 dark:text-white">$1.400.000</span>
@@ -226,7 +229,7 @@ const App: React.FC = () => {
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
                 Para pymes que buscan captar más clientes con una presencia sólida.
               </p>
-              <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors mb-8">
+              <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
                 Solicitar Profesional
               </button>
               
@@ -240,7 +243,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Plan 3: Premium */}
-            <div className="bg-gray-50 dark:bg-[#161616] rounded-2xl p-6 border border-purple-500/30 flex flex-col relative overflow-hidden shadow-md dark:shadow-none transition-colors">
+            <div className="bg-gray-50 dark:bg-[#161616] rounded-2xl p-6 border border-purple-500/30 flex flex-col relative overflow-hidden shadow-md dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-purple-500/30 animate-fade-in" style={{animationDelay: '0.3s'}}>
               <div className="absolute top-0 right-0 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">Popular</div>
               <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Premium</h3>
               <div className="flex items-baseline gap-1 mb-4">
@@ -250,7 +253,7 @@ const App: React.FC = () => {
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
                 Para empresas que priorizan la conversión, y el diseño a medida.
               </p>
-              <button onClick={() => handleNavigation('contact')} className="w-full py-3 bg-black dark:bg-white/10 border border-transparent dark:border-white/20 rounded-lg text-sm font-bold text-white hover:opacity-80 dark:hover:bg-white dark:hover:text-black transition-colors mb-8">
+              <button onClick={() => handleNavigation('contact')} className="w-full py-3 bg-black dark:bg-white/10 border border-transparent dark:border-white/20 rounded-lg text-sm font-bold text-white hover:opacity-80 dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
                 Solicitar Premium
               </button>
               
@@ -265,7 +268,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Plan 4: Corporativo */}
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-colors">
+            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-green-500/20 hover:border-green-500/30 dark:hover:border-green-500/30 animate-fade-in" style={{animationDelay: '0.4s'}}>
               <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Corporativo</h3>
               <div className="flex items-baseline gap-1 mb-4">
                 <span className="text-3xl font-bold text-gray-900 dark:text-white">A cotizar</span>
@@ -273,7 +276,7 @@ const App: React.FC = () => {
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
                 Soluciones a medida para proyectos complejos y escalables.
               </p>
-              <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors mb-8">
+              <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
                 Contactar para Corporativo
               </button>
               
@@ -349,7 +352,7 @@ const App: React.FC = () => {
             
             <div className="flex flex-col sm:flex-row justify-center gap-4">
       
-              <button onClick={() => handleNavigation('contact')} className="bg-black dark:bg-white text-white dark:text-black border border-transparent dark:border-white/20 px-8 py-3.5 rounded-lg font-bold hover:opacity-80 dark:hover:bg-gray-200 transition-colors">
+              <button onClick={() => handleNavigation('contact')} className="bg-black dark:bg-white text-white dark:text-black border border-transparent dark:border-white/20 px-8 py-3.5 rounded-lg font-bold hover:opacity-80 dark:hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                 Solicitar Demo
               </button>
             </div>
@@ -361,20 +364,20 @@ const App: React.FC = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'dark' : ''}`}>
-      <div className="bg-white dark:bg-[#050505] text-gray-900 dark:text-white min-h-screen">
+      <div className={`${theme === 'dark' ? 'bg-[#050505]' : 'bg-white'} ${theme === 'dark' ? 'text-white' : 'text-gray-900'} min-h-screen`}>
         <Navbar onNavigate={handleNavigation} theme={theme} toggleTheme={toggleTheme} />
         
         <main>
           {currentPage === 'home' && renderHome()}
-          {currentPage === 'websites' && <WebsitesLanding onNavigate={handleNavigation} />}
-          {currentPage === 'company' && <CompanyLanding onNavigate={handleNavigation} />}
-          {currentPage === 'staffing' && <StaffingLanding onNavigate={handleNavigation} />}
-          {currentPage === 'custom-software' && <CustomSoftwareLanding onNavigate={handleNavigation} />}
-          {currentPage === 'automation' && <AutomationLanding onNavigate={handleNavigation} />}
-          {currentPage === 'contact' && <ContactLanding />}
+          {currentPage === 'websites' && <WebsitesLanding onNavigate={handleNavigation} theme={theme} />}
+          {currentPage === 'company' && <CompanyLanding onNavigate={handleNavigation} theme={theme} />}
+          {currentPage === 'staffing' && <StaffingLanding onNavigate={handleNavigation} theme={theme} />}
+          {currentPage === 'custom-software' && <CustomSoftwareLanding onNavigate={handleNavigation} theme={theme} />}
+          {currentPage === 'automation' && <AutomationLanding onNavigate={handleNavigation} theme={theme} />}
+          {currentPage === 'contact' && <ContactLanding theme={theme} />}
         </main>
 
-        <Footer onNavigate={handleNavigation} />
+        <Footer onNavigate={handleNavigation} theme={theme} />
         <AIAssistant />
       </div>
     </div>

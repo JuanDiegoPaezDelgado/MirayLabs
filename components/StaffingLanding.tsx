@@ -14,15 +14,16 @@ import {
   Minus
 } from 'lucide-react';
 
-const StaffingLanding: React.FC<{ onNavigate: (page: string) => void }> = ({ onNavigate }) => {
+const StaffingLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'dark' | 'light' }> = ({ onNavigate, theme = 'dark' }) => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const isDark = theme === 'dark';
 
   const toggleFaq = (index: number) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
 
   return (
-    <div className="animate-fade-in bg-[#050505] text-white">
+    <div className={`animate-fade-in ${isDark ? 'dark' : ''} bg-white dark:bg-[#050505] text-gray-900 dark:text-white`}>
       {/* --- HERO SECTION --- */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -35,22 +36,22 @@ const StaffingLanding: React.FC<{ onNavigate: (page: string) => void }> = ({ onN
           </div>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1]">
             Talento TI de Élite <br />
-            <span className="font-serif italic font-light text-gray-300">Integrado</span> en tu Equipo.
+            <span className="font-serif italic font-light text-gray-700 dark:text-gray-300">Integrado</span> en tu Equipo.
           </h1>
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
             Escala tu equipo de desarrollo en 48 horas con el Top 1% de talento en LatAm. 
             Sin costos de contratación, sin burocracia, solo código de calidad.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <button 
               onClick={() => onNavigate('contact')}
-              className="bg-blue-600 text-white px-8 py-3.5 rounded-full font-medium hover:bg-blue-700 transition-all w-full sm:w-auto shadow-lg shadow-blue-900/20"
+              className="bg-blue-600 text-gray-900 dark:text-white px-8 py-3.5 rounded-full font-medium hover:bg-blue-700 transition-all w-full sm:w-auto shadow-lg shadow-blue-900/20"
             >
               Encontrar Talento
             </button>
             <button 
               onClick={() => onNavigate('contact')}
-              className="bg-[#1a1a1a] text-white border border-white/10 px-8 py-3.5 rounded-full font-bold hover:bg-white hover:text-black transition-colors w-full sm:w-auto"
+              className="bg-gray-100 dark:bg-[#1a1a1a] text-gray-900 dark:text-white border border-white/10 px-8 py-3.5 rounded-full font-bold hover:bg-white hover:text-black transition-colors w-full sm:w-auto"
             >
               Agendar Llamada
             </button>
@@ -59,11 +60,11 @@ const StaffingLanding: React.FC<{ onNavigate: (page: string) => void }> = ({ onN
       </section>
 
       {/* --- ROLES --- */}
-      <section className="py-20 px-6 bg-[#0a0a0a]">
+      <section className="py-20 px-6 bg-gray-50 dark:bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Perfiles Listos para Desplegar</h2>
-            <p className="text-gray-400">Cubrimos todo el ciclo de vida del desarrollo de software.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Perfiles Listos para Desplegar</h2>
+            <p className="text-gray-600 dark:text-gray-400">Cubrimos todo el ciclo de vida del desarrollo de software.</p>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -77,12 +78,12 @@ const StaffingLanding: React.FC<{ onNavigate: (page: string) => void }> = ({ onN
                { role: 'UI/UX Designers', stack: 'Figma, Adobe XD', icon: <Award /> },
                { role: 'Project Managers', stack: 'Scrum, Agile', icon: <Clock /> },
              ].map((item, i) => (
-               <div key={i} className="bg-[#111] p-6 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all group hover:-translate-y-1">
+               <div key={i} className="bg-white dark:bg-[#111] p-6 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all group hover:-translate-y-1">
                  <div className="w-10 h-10 bg-blue-900/20 text-blue-400 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                     {React.cloneElement(item.icon as React.ReactElement<any>, { size: 20 })}
                  </div>
-                 <h3 className="font-bold text-white mb-1">{item.role}</h3>
-                 <p className="text-xs text-gray-500">{item.stack}</p>
+                 <h3 className="font-bold text-gray-900 dark:text-white mb-1">{item.role}</h3>
+                 <p className="text-xs text-gray-600 dark:text-gray-500">{item.stack}</p>
                </div>
              ))}
           </div>
@@ -90,12 +91,12 @@ const StaffingLanding: React.FC<{ onNavigate: (page: string) => void }> = ({ onN
       </section>
 
       {/* --- BENEFITS --- */}
-      <section className="py-24 px-6 bg-[#050505]">
+      <section className="py-24 px-6 bg-white dark:bg-[#050505]">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-6">¿Por qué nuestro Staffing es diferente?</h2>
-              <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">¿Por qué nuestro Staffing es diferente?</h2>
+              <p className="text-gray-600 dark:text-gray-400 text-lg mb-8 leading-relaxed">
                 No somos headhunters tradicionales. Somos una empresa de tecnología que entiende de tecnología. 
                 Pre-evaluamos técnicamente a cada candidato para asegurar que se integre a tu flujo de trabajo desde el día 1.
               </p>
@@ -112,8 +113,8 @@ const StaffingLanding: React.FC<{ onNavigate: (page: string) => void }> = ({ onN
                       <CheckCircle size={14} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-white">{item.title}</h4>
-                      <p className="text-sm text-gray-500">{item.desc}</p>
+                      <h4 className="font-bold text-gray-900 dark:text-white">{item.title}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-500">{item.desc}</p>
                     </div>
                   </li>
                 ))}
@@ -122,46 +123,46 @@ const StaffingLanding: React.FC<{ onNavigate: (page: string) => void }> = ({ onN
             
             <div className="relative">
                <div className="absolute inset-0 bg-blue-600/20 blur-[100px] rounded-full"></div>
-               <div className="relative bg-[#111] border border-white/10 rounded-2xl p-8">
-                  <div className="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
+               <div className="relative bg-white dark:bg-[#111] border border-gray-300 dark:border-white/10 rounded-2xl p-8">
+                  <div className="flex items-center justify-between mb-8 border-b border-gray-200 dark:border-white/5 pb-4">
                     <div>
-                       <div className="text-sm text-gray-400">Tasa de Retención</div>
-                       <div className="text-3xl font-bold text-white">98%</div>
+                       <div className="text-sm text-gray-600 dark:text-gray-400">Tasa de Retención</div>
+                       <div className="text-3xl font-bold text-gray-900 dark:text-white">98%</div>
                     </div>
                     <div className="text-right">
-                       <div className="text-sm text-gray-400">Tiempo Promedio</div>
-                       <div className="text-3xl font-bold text-white">2.5 Años</div>
+                       <div className="text-sm text-gray-600 dark:text-gray-400">Tiempo Promedio</div>
+                       <div className="text-3xl font-bold text-gray-900 dark:text-white">2.5 Años</div>
                     </div>
                   </div>
                   
                   <div className="space-y-4">
-                    <div className="bg-[#1a1a1a] p-4 rounded-xl flex items-center gap-4">
+                    <div className="bg-gray-100 dark:bg-[#1a1a1a] p-4 rounded-xl flex items-center gap-4">
                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dev" className="w-10 h-10 rounded-full border border-blue-500/30" />
                        <div>
-                          <div className="font-bold text-white text-sm">Carlos M.</div>
+                          <div className="font-bold text-gray-900 dark:text-white text-sm">Carlos M.</div>
                           <div className="text-xs text-blue-400">Senior React Developer</div>
                        </div>
                        <div className="ml-auto text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">Disponible</div>
                     </div>
-                    <div className="bg-[#1a1a1a] p-4 rounded-xl flex items-center gap-4">
+                    <div className="bg-gray-100 dark:bg-[#1a1a1a] p-4 rounded-xl flex items-center gap-4">
                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dev" className="w-10 h-10 rounded-full border border-purple-500/30" />
                        <div>
-                          <div className="font-bold text-white text-sm">Ana S.</div>
+                          <div className="font-bold text-gray-900 dark:text-white text-sm">Ana S.</div>
                           <div className="text-xs text-purple-400">DevOps Engineer</div>
                        </div>
                        <div className="ml-auto text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">Disponible</div>
                     </div>
-                    <div className="bg-[#1a1a1a] p-4 rounded-xl flex items-center gap-4 opacity-50">
+                    <div className="bg-gray-100 dark:bg-[#1a1a1a] p-4 rounded-xl flex items-center gap-4 opacity-50">
                        <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="Dev" className="w-10 h-10 rounded-full" />
                        <div>
-                          <div className="font-bold text-white text-sm">Miguel R.</div>
-                          <div className="text-xs text-gray-400">Python Backend</div>
+                          <div className="font-bold text-gray-900 dark:text-white text-sm">Miguel R.</div>
+                          <div className="text-xs text-gray-600 dark:text-gray-400">Python Backend</div>
                        </div>
-                       <div className="ml-auto text-xs bg-gray-700 text-gray-400 px-2 py-1 rounded">Asignado</div>
+                       <div className="ml-auto text-xs bg-gray-700 text-gray-600 dark:text-gray-400 px-2 py-1 rounded">Asignado</div>
                     </div>
                   </div>
                   
-                  <button className="w-full mt-6 py-3 bg-white text-black font-bold rounded-lg text-sm hover:bg-gray-200 transition-colors">
+                  <button className="w-full mt-6 py-3 bg-black dark:bg-white text-white dark:text-black font-bold rounded-lg text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors">
                      Ver Base de Talentos
                   </button>
                </div>
@@ -171,10 +172,10 @@ const StaffingLanding: React.FC<{ onNavigate: (page: string) => void }> = ({ onN
       </section>
 
       {/* --- FAQ --- */}
-      <section className="py-24 px-6 bg-[#0a0a0a]">
+      <section className="py-24 px-6 bg-gray-50 dark:bg-[#0a0a0a]">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">Preguntas Frecuentes sobre Staffing</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Preguntas Frecuentes sobre Staffing</h2>
           </div>
           <div className="space-y-4">
              {[
@@ -186,13 +187,13 @@ const StaffingLanding: React.FC<{ onNavigate: (page: string) => void }> = ({ onN
               <div key={index} className="border-b border-white/10 last:border-0">
                 <button 
                   onClick={() => toggleFaq(index)}
-                  className="w-full flex justify-between items-center py-6 text-left hover:text-white transition-colors text-gray-200"
+                  className="w-full flex justify-between items-center py-6 text-left hover:text-gray-900 dark:text-white transition-colors text-gray-800 dark:text-gray-200"
                 >
                   <span className="font-bold text-lg pr-8">{faq.q}</span>
-                  {activeFaq === index ? <Minus size={20} className="text-gray-500 shrink-0" /> : <Plus size={20} className="text-gray-500 shrink-0" />}
+                  {activeFaq === index ? <Minus size={20} className="text-gray-600 dark:text-gray-500 shrink-0" /> : <Plus size={20} className="text-gray-600 dark:text-gray-500 shrink-0" />}
                 </button>
                 <div className={`overflow-hidden transition-all duration-300 ${activeFaq === index ? 'max-h-40 pb-6 opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <p className="text-gray-400 leading-relaxed text-sm">
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
                     {faq.a}
                   </p>
                 </div>
@@ -203,10 +204,10 @@ const StaffingLanding: React.FC<{ onNavigate: (page: string) => void }> = ({ onN
       </section>
 
       {/* --- CTA --- */}
-      <section className="py-24 px-6 bg-[#050505] border-t border-white/5">
+      <section className="py-24 px-6 bg-white dark:bg-[#050505] border-t border-gray-200 dark:border-white/5">
         <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">¿Necesitas escalar tu equipo hoy?</h2>
-            <p className="text-gray-400 mb-10 text-lg">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">¿Necesitas escalar tu equipo hoy?</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-10 text-lg">
               Déjanos encontrar al candidato perfecto para tu proyecto.
             </p>
             <button 
@@ -222,3 +223,7 @@ const StaffingLanding: React.FC<{ onNavigate: (page: string) => void }> = ({ onN
 };
 
 export default StaffingLanding;
+
+
+
+
