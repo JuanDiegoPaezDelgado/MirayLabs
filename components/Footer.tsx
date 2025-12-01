@@ -17,8 +17,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, theme = 'dark' }) => {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 mb-16">
           <div className="col-span-2">
             <div className="flex items-center gap-2 mb-6">
-              <div className={`w-7 h-7 flex items-center justify-center ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                <CatLogo />
+              <div className={`w-7 h-7 flex items-center justify-center rounded-full overflow-hidden ${isDark ? '' : ''}`}>
+                <CatLogo className="w-full h-full object-contain dark:invert dark:brightness-125" />
               </div>
               <span className={`${isDark ? 'text-white' : 'text-gray-900'} font-bold text-lg`}>Miraylabs</span>
             </div>

@@ -15,12 +15,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, theme, toggleTheme }) => {
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-[#050505]/80 backdrop-blur-lg border-b border-gray-200 dark:border-white/5 transition-all duration-300 text-gray-900 dark:text-white">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div 
+          <div 
           className="flex items-center gap-2 cursor-pointer" 
           onClick={() => onNavigate('home')}
         >
-          <div className="w-9 h-9 flex items-center justify-center">
-            <CatLogo />
+          <div className="w-9 h-9 flex items-center justify-center rounded-full overflow-hidden">
+            <CatLogo className="w-full h-full object-contain dark:invert dark:brightness-125" />
           </div>
           <span className="font-bold text-lg tracking-tight">Miraylabs</span>
         </div>

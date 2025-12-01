@@ -37,8 +37,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isMobileOpen
       <aside className={sidebarClasses}>
         <div className="flex items-center justify-center h-16 border-b border-gray-100">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 flex items-center justify-center text-blue-600">
-              <CatLogo />
+            <div className="w-8 h-8 flex items-center justify-center text-blue-600 rounded-full overflow-hidden">
+              <CatLogo className="w-full h-full object-contain dark:invert dark:brightness-125" />
             </div>
             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-700">
               Miraylabs
