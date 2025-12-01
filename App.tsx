@@ -80,17 +80,6 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Client Logos */}
-        <div className="mt-32 text-center relative z-10">
-          <p className="text-xs font-bold tracking-widest text-gray-400 dark:text-gray-500 uppercase mb-10 transition-colors">
-            Hemos trabajado con empresas líderes
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-12 opacity-60 dark:opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-            {['OB SEGUROS', 'qentaz', 'VIMARSA', 'BUCARAMANGA', 'Trazo'].map((logo, i) => (
-              <div key={i} className="text-xl font-bold font-serif text-gray-800 dark:text-white transition-colors">{logo}</div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* --- SERVICES GRID --- */}
