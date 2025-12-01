@@ -78,7 +78,7 @@ const ContactLanding: React.FC<{ theme?: 'dark' | 'light' }> = ({ theme = 'dark'
         <div className="bg-white dark:bg-[#111] border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[600px]">
           
           {/* Left Sidebar: Event Details */}
-          <div className="w-full md:w-1/3 p-8 border-b md:border-b-0 md:border-r border-white/10 bg-gray-50 dark:bg-gray-50 dark:bg-gray-50 dark:bg-[#0a0a0a]">
+          <div className="w-full md:w-1/3 p-8 border-b md:border-b-0 md:border-r border-gray-200 dark:border-white/10 bg-white dark:bg-[#0a0a0a]">
             {step === 'calendar' ? (
                <>
                 <div className="mb-6">
@@ -87,7 +87,7 @@ const ContactLanding: React.FC<{ theme?: 'dark' | 'light' }> = ({ theme = 'dark'
                    </div>
                    <p className="text-gray-600 dark:text-gray-400 text-sm font-medium">Cristian Muñoz</p>
                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">1 hour Meeting</h2>
-                   <p className="text-gray-600 dark:text-gray-500 text-sm mt-2">Let's build the future</p>
+                   <p className="text-gray-600 dark:text-gray-400 text-sm mt-2">Let's build the future</p>
                 </div>
                 <div className="space-y-4 text-gray-600 dark:text-gray-400 text-sm">
                    <div className="flex items-center gap-3">
@@ -152,10 +152,10 @@ const ContactLanding: React.FC<{ theme?: 'dark' | 'light' }> = ({ theme = 'dark'
                              onClick={() => setSelectedDate(day)}
                              className={`h-10 w-10 rounded-full text-sm font-medium transition-all flex items-center justify-center
                                 ${selectedDate === day 
-                                   ? 'bg-white text-black font-bold' 
+                                   ? 'bg-emerald-600 text-white font-bold' 
                                    : 'text-gray-700 dark:text-gray-300 hover:bg-white/10'
                                 }`}
-                          >
+                             >
                              {day}
                           </button>
                        ))}
@@ -186,15 +186,15 @@ const ContactLanding: React.FC<{ theme?: 'dark' | 'light' }> = ({ theme = 'dark'
                <form onSubmit={handleFormSubmit} className="max-w-md mx-auto animate-fade-in space-y-6">
                   <div>
                      <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Tu Nombre *</label>
-                     <input required type="text" className="w-full bg-gray-50 dark:bg-gray-50 dark:bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all" />
+                     <input required type="text" className="w-full bg-gray-50 dark:bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all" />
                   </div>
                   <div>
                      <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Email *</label>
-                     <input required type="email" className="w-full bg-gray-50 dark:bg-gray-50 dark:bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all" />
+                     <input required type="email" className="w-full bg-gray-50 dark:bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all" />
                   </div>
                   <div>
                      <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Notas Adicionales</label>
-                     <textarea rows={4} className="w-full bg-gray-50 dark:bg-gray-50 dark:bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all resize-none"></textarea>
+                     <textarea rows={4} className="w-full bg-gray-50 dark:bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all resize-none"></textarea>
                   </div>
                   
                   <button type="button" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white flex items-center gap-1">
