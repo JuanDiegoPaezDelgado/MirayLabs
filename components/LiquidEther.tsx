@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import './LiquidEther.css';
 
 export default function LiquidEther({
+    fps = 0, // Nuevo: 0 = Nativo (60/144hz), > 0 = Limite específico (ej. 30)
     mouseForce = 20,
     cursorSize = 100,
     isViscous = false,
@@ -66,7 +67,7 @@ export default function LiquidEther({
         }
 
         const paletteTex = makePaletteTexture(colors);
-        const bgVec4 = new THREE.Vector4(0, 0, 0, 0); // always transparent
+        const bgVec4 = new THREE.Vector4(0, 0, 0, 0);
 
         class CommonClass {
             constructor() {
@@ -263,8 +264,8 @@ export default function LiquidEther({
                 this.mouse = mouse;
                 this.manager = manager;
                 this.enabled = opts.enabled;
-                this.speed = opts.speed; // normalized units/sec
-                this.resumeDelay = opts.resumeDelay || 3000; // ms
+                this.speed = opts.speed;
+                this.resumeDelay = opts.resumeDelay || 3000;
                 this.rampDurationMs = (opts.rampDuration || 0) * 1000;
                 this.active = false;
                 this.current = new THREE.Vector2(0, 0);
@@ -272,7 +273,7 @@ export default function LiquidEther({
                 this.lastTime = performance.now();
                 this.activationTime = 0;
                 this.margin = 0.2;
-                this._tmpDir = new THREE.Vector2(); // reuse temp vector to avoid per-frame alloc
+                this._tmpDir = new THREE.Vector2();
                 this.pickNewTarget();
             }
             pickNewTarget() {
@@ -927,6 +928,11 @@ export default function LiquidEther({
         class WebGLManager {
             constructor(props) {
                 this.props = props;
+                // Configuración de FPS
+                this.targetFps = props.fps || 0;
+                this.frameInterval = this.targetFps > 0 ? 1000 / this.targetFps : 0;
+                this.lastFrameTime = performance.now();
+
                 Common.init(props.$wrapper);
                 Mouse.init(props.$wrapper);
                 Mouse.autoIntensity = props.autoIntensity;
@@ -972,13 +978,36 @@ export default function LiquidEther({
                 this.output.update();
             }
             loop() {
-                if (!this.running) return; // safety
-                this.render();
+                if (!this.running) return;
+
                 rafRef.current = requestAnimationFrame(this._loop);
+
+                // Si FPS es 0 o menor, ejecutamos lo más rápido posible (comportamiento original)
+                if (this.targetFps <= 0) {
+                    this.render();
+                    return;
+                }
+
+                // Lógica para limitar FPS
+                const now = performance.now();
+                const elapsed = now - this.lastFrameTime;
+
+                if (elapsed > this.frameInterval) {
+                    // Ajuste para el "drift" (deslizamiento de tiempo)
+                    this.lastFrameTime = now - (elapsed % this.frameInterval);
+                    this.render();
+                }
+            }
+            setFps(newFps) {
+                this.targetFps = newFps;
+                this.frameInterval = this.targetFps > 0 ? 1000 / this.targetFps : 0;
+                // Reseteamos el lastFrameTime para evitar saltos grandes al cambiar FPS
+                this.lastFrameTime = performance.now();
             }
             start() {
                 if (this.running) return;
                 this.running = true;
+                this.lastFrameTime = performance.now(); // Resetear tiempo al iniciar
                 this._loop();
             }
             pause() {
@@ -1010,6 +1039,7 @@ export default function LiquidEther({
 
         const webgl = new WebGLManager({
             $wrapper: container,
+            fps, // Pasamos el FPS inicial
             autoDemo,
             autoSpeed,
             autoIntensity,
@@ -1044,7 +1074,6 @@ export default function LiquidEther({
 
         webgl.start();
 
-        // IntersectionObserver to pause rendering when not visible
         const io = new IntersectionObserver(
             entries => {
                 const entry = entries[0];
@@ -1095,23 +1124,9 @@ export default function LiquidEther({
             webglRef.current = null;
         };
     }, [
-        BFECC,
-        cursorSize,
-        dt,
-        isBounce,
-        isViscous,
-        iterationsPoisson,
-        iterationsViscous,
-        mouseForce,
-        resolution,
-        viscous,
-        colors,
-        autoDemo,
-        autoSpeed,
-        autoIntensity,
-        takeoverDuration,
-        autoResumeDelay,
-        autoRampDuration
+        // NOTA: 'fps' no está aquí para evitar reinicializar todo el webgl manager
+        // Se maneja en el segundo useEffect
+        colors // Si cambian los colores, se reinicia todo (es costoso cambiar texturas)
     ]);
 
     useEffect(() => {
@@ -1120,6 +1135,12 @@ export default function LiquidEther({
         const sim = webgl.output?.simulation;
         if (!sim) return;
         const prevRes = sim.options.resolution;
+
+        // Actualizar FPS dinámicamente
+        if (webgl.setFps) {
+            webgl.setFps(fps);
+        }
+
         Object.assign(sim.options, {
             mouse_force: mouseForce,
             cursor_size: cursorSize,
@@ -1146,6 +1167,7 @@ export default function LiquidEther({
             sim.resize();
         }
     }, [
+        fps, // Agregado aquí
         mouseForce,
         cursorSize,
         isViscous,
