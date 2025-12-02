@@ -22,8 +22,9 @@ import AutomationLanding from './components/AutomationLanding';
 import ContactLanding from './components/ContactLanding';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import LiquidEther from './components/LiquidEther';
+import SpotlightCard from './components/SpotlightCard';
 // import AIAssistant from './components/AIAssistant';
-import StarBackground from './components/StarBackground';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<'home' | 'websites' | 'company' | 'staffing' | 'custom-software' | 'automation' | 'contact'>('home');
@@ -48,38 +49,38 @@ const App: React.FC = () => {
   const renderHome = () => (
     <div className="animate-fade-in">
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
-        {/* Background Stars/Particles (Only visible in dark mode) */}
-        <div className="absolute inset-0 z-0 dark:block bg-white dark:bg-[#050505] transition-colors duration-300">
+      <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+        {/* Liquid Ether Background */}
+        <div className="absolute inset-0 z-0">
           <div className="hidden dark:block">
-            <StarBackground />
+            <LiquidEther />
           </div>
-          <div className="hidden dark:block stars absolute inset-0 animate-pulse-slow" style={{ backgroundPosition: '50px 50px', opacity: 0.5 }}></div>
           {/* Light Mode Gradient */}
-          <div className="dark:hidden absolute inset-0 bg-gradient-to-b from-blue-50 to-white"></div>
+          <div className="dark:hidden absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"></div>
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
+        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8 py-20">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-gray-900 dark:text-white leading-[1.1] transition-colors">
-            Creando <span className="font-serif italic font-light text-gray-500 dark:text-gray-300">juntos</span> <br />
-            un universo de soluciones
+            Creando productos digitales que <span className="bg-gradient-to-r from-cyan-400 via-magenta-500 to-purple-500 bg-clip-text text-transparent">fluyen tan natural</span> como tus ideas
           </h1>
 
-          <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed transition-colors">
-            Ayudamos a startups y empresas consolidadas a lanzar productos digitales excepcionales,
-            combinando diseño de vanguardia con desarrollo robusto.
+          <p className="text-gray-600 dark:text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed transition-colors">
+            Llevamos tu visión desde el boceto hasta el lanzamiento, combinando diseño de alto impacto, desarrollo sólido y automatización inteligente. Acompañamos a startups y empresas en cada etapa, para que sus productos se sientan modernos hoy y sigan vigentes mañana.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
             <button
               onClick={() => handleNavigation('contact')}
-              className="bg-black dark:bg-[#1a1a1a] text-white border border-transparent dark:border-white/10 px-8 py-3.5 rounded-full font-medium hover:opacity-80 dark:hover:bg-[#252525] transition-all w-full sm:w-auto"
+              className="relative px-8 py-4 rounded-full text-base font-bold overflow-hidden group"
             >
-              Contacto
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-magenta-500 to-purple-600 bg-[length:200%_100%] animate-gradient-flow"></div>
+              <div className="absolute inset-0 rounded-full shadow-[0_0_30px_rgba(0,212,255,0.6)]"></div>
+              <span className="relative text-white font-bold tracking-wide">
+                Comienza Tu Proyecto
+              </span>
             </button>
           </div>
         </div>
-
       </section>
 
       {/* --- SERVICES GRID --- */}
@@ -88,7 +89,7 @@ const App: React.FC = () => {
           <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <span className="text-gray-500 text-sm font-bold tracking-wider uppercase block mb-4">/ Nuestros Servicios</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white transition-colors">Un universo de soluciones</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white transition-colors">Un mundo de soluciones</h2>
             </div>
             {/* UPDATED TEXT AS REQUESTED */}
             <p className="text-gray-600 dark:text-gray-400 max-w-md text-sm leading-relaxed transition-colors">
@@ -99,79 +100,87 @@ const App: React.FC = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Service 1: Sitios Web */}
-            <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-blue-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-blue-500/20 transform hover:-translate-y-2">
-              <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-gray-300">
-                <Globe size={24} strokeWidth={1.5} />
+            <SpotlightCard spotlightColor="rgba(0, 212, 255, 0.25)">
+              <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-cyan-400/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-cyan-500/20 transform hover:-translate-y-2">
+                <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-cyan-400 group-hover:text-cyan-500 transition-colors">
+                  <Globe size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transition-colors">Sitios Web</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
+                  Diseñamos y desarrollamos experiencias web a medida que convierten visitantes en clientes.
+                </p>
+                <button
+                  onClick={() => handleNavigation('websites')}
+                  className="inline-flex items-center text-cyan-600 dark:text-cyan-400 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
+                >
+                  Ver más <ArrowRight size={16} className="ml-1" />
+                </button>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transition-colors">Sitios Web</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
-                Diseñamos y desarrollamos experiencias web a medida que convierten visitantes en clientes.
-              </p>
-              <button
-                onClick={() => handleNavigation('websites')}
-                className="inline-flex items-center text-blue-600 dark:text-primary-500 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
-              >
-                Ver más <ArrowRight size={16} className="ml-1" />
-              </button>
-            </div>
+            </SpotlightCard>
 
             {/* Service 2: Software a Medida */}
-            <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-purple-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-purple-500/20 transform hover:-translate-y-2">
-              <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-gray-300">
-                <Code size={24} strokeWidth={1.5} />
+            <SpotlightCard spotlightColor="rgba(255, 0, 255, 0.25)">
+              <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-magenta-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-magenta-500/20 transform hover:-translate-y-2">
+                <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-magenta-400 group-hover:text-magenta-500 transition-colors">
+                  <Code size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transition-colors">Software a Medida</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
+                  Aplicaciones web, móviles y SaaS robustos diseñados para escalar con tu negocio.
+                </p>
+                <button
+                  onClick={() => handleNavigation('custom-software')}
+                  className="inline-flex items-center text-magenta-600 dark:text-magenta-400 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
+                >
+                  Ver más <ArrowRight size={16} className="ml-1" />
+                </button>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transition-colors">Software a Medida</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
-                Aplicaciones web, móviles y SaaS robustos diseñados para escalar con tu negocio.
-              </p>
-              <button
-                onClick={() => handleNavigation('custom-software')}
-                className="inline-flex items-center text-blue-600 dark:text-primary-500 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
-              >
-                Ver más <ArrowRight size={16} className="ml-1" />
-              </button>
-            </div>
+            </SpotlightCard>
 
             {/* Service 3: Staffing */}
-            <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-green-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-green-500/20 transform hover:-translate-y-2">
-              <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-gray-300">
-                <Users size={24} strokeWidth={1.5} />
+            <SpotlightCard spotlightColor="rgba(139, 92, 246, 0.25)">
+              <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-purple-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-purple-500/20 transform hover:-translate-y-2">
+                <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+                  <Users size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transition-colors">Staffing IT</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
+                  Aumenta tu equipo con el top 1% de talento TI. Desarrolladores listos para integrarse.
+                </p>
+                <button
+                  onClick={() => handleNavigation('staffing')}
+                  className="inline-flex items-center text-purple-600 dark:text-purple-400 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
+                >
+                  Ver más <ArrowRight size={16} className="ml-1" />
+                </button>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transition-colors">Staffing IT</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
-                Aumenta tu equipo con el top 1% de talento TI. Desarrolladores listos para integrarse.
-              </p>
-              <button
-                onClick={() => handleNavigation('staffing')}
-                className="inline-flex items-center text-blue-600 dark:text-primary-500 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
-              >
-                Ver más <ArrowRight size={16} className="ml-1" />
-              </button>
-            </div>
+            </SpotlightCard>
 
             {/* Service 4: Automation (NEW) */}
-            <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-orange-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-orange-500/20 transform hover:-translate-y-2">
-              <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-gray-300">
-                <Bot size={24} strokeWidth={1.5} />
+            <SpotlightCard spotlightColor="rgba(255, 215, 0, 0.25)">
+              <div className="bg-white dark:bg-[#111] p-8 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-yellow-500/30 transition-all duration-300 group flex flex-col shadow-sm dark:shadow-none hover:shadow-lg dark:hover:shadow-yellow-500/20 transform hover:-translate-y-2">
+                <div className="w-12 h-12 border border-gray-200 dark:border-white/20 rounded-xl flex items-center justify-center mb-8 text-gray-700 dark:text-yellow-400 group-hover:text-yellow-500 transition-colors">
+                  <Bot size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transition-colors">Automatización & IA</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
+                  Optimiza procesos repetitivos y escala operaciones con agentes inteligentes.
+                </p>
+                <button
+                  onClick={() => handleNavigation('automation')}
+                  className="inline-flex items-center text-yellow-600 dark:text-yellow-400 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
+                >
+                  Ver más <ArrowRight size={16} className="ml-1" />
+                </button>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transition-colors">Automatización & IA</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-1 transition-colors">
-                Optimiza procesos repetitivos y escala operaciones con agentes inteligentes.
-              </p>
-              <button
-                onClick={() => handleNavigation('automation')}
-                className="inline-flex items-center text-blue-600 dark:text-primary-500 text-sm font-bold group-hover:gap-2 transition-all mt-auto"
-              >
-                Ver más <ArrowRight size={16} className="ml-1" />
-              </button>
-            </div>
+            </SpotlightCard>
 
           </div>
         </div>
       </section>
 
       {/* --- PRICING --- */}
-      <section className="py-24 px-6 bg-white dark:bg-[#050505] transition-colors duration-300">
+      <section className="py-24 px-6 bg-white dark:bg-[#060010] transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="bg-gray-100 dark:bg-[#1a1a1a] text-gray-900 dark:text-white px-4 py-1.5 rounded-full text-xs font-bold mb-6 inline-block border border-gray-200 dark:border-white/10 transition-colors">
@@ -185,97 +194,124 @@ const App: React.FC = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Plan 1: Básico */}
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-blue-500/20 hover:border-blue-500/30 dark:hover:border-blue-500/30 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Básico</h3>
-              <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">$999.000</span>
-                <span className="text-xs text-gray-500">COP</span>
-              </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
-                Ideal para negocios que quieren estar online rápido y de forma económica.
-              </p>
-              <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
-                Solicitar Básico
-              </button>
+            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-cyan-500/20 hover:border-cyan-500/30 dark:hover:border-cyan-500/30 animate-fade-in relative overflow-hidden" style={{ animationDelay: '0.1s' }}>
+              {/* Gradual Blur Effect */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50 dark:to-black/50 pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)' }}></div>
 
-              <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> 5 Secciones</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Entrega en 5 días</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Hosting (1er año)</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Dominio (1er año)</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Certificado SSL</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Diseño con plantilla</li>
-              </ul>
+              <div className="relative z-10">
+                <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Básico</h3>
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-3xl font-bold text-gray-900 dark:text-white">$999.000</span>
+                  <span className="text-xs text-gray-500">COP</span>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
+                  Ideal para negocios que quieren estar online rápido y de forma económica.
+                </p>
+                <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-cyan-500 dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
+                  Solicitar Básico
+                </button>
+
+                <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> 5 Secciones</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> Entrega en 5 días</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> Hosting (1er año)</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> Dominio (1er año)</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> Certificado SSL</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> Diseño con plantilla</li>
+                </ul>
+              </div>
             </div>
 
             {/* Plan 2: Profesional */}
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-purple-500/20 hover:border-purple-500/30 dark:hover:border-purple-500/30 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Profesional</h3>
-              <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">$1.600.000</span>
-                <span className="text-xs text-gray-500">COP</span>
-              </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
-                Para pymes que buscan captar más clientes con una presencia sólida.
-              </p>
-              <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
-                Solicitar Profesional
-              </button>
+            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-magenta-500/20 hover:border-magenta-500/30 dark:hover:border-magenta-500/30 animate-fade-in relative overflow-hidden" style={{ animationDelay: '0.2s' }}>
+              {/* Gradual Blur Effect */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50 dark:to-black/50 pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)' }}></div>
 
-              <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Todo lo de Básico</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> 8 Secciones</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Formulario avanzado</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> SEO básico</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Integración Maps</li>
-              </ul>
+              <div className="relative z-10">
+                <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Profesional</h3>
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-3xl font-bold text-gray-900 dark:text-white">$1.600.000</span>
+                  <span className="text-xs text-gray-500">COP</span>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
+                  Para pymes que buscan captar más clientes con una presencia sólida.
+                </p>
+                <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-magenta-500 dark:hover:text-white transition-all duration-300 transform hover:scale-105 mb-8">
+                  Solicitar Profesional
+                </button>
+
+                <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full p-0.5"><Check size={10} /></div> Todo lo de Básico</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full p-0.5"><Check size={10} /></div> 8 Secciones</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full p-0.5"><Check size={10} /></div> Formulario avanzado</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full p-0.5"><Check size={10} /></div> SEO básico</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full p-0.5"><Check size={10} /></div> Integración Maps</li>
+                </ul>
+              </div>
             </div>
 
-            {/* Plan 3: Premium */}
-            <div className="bg-gray-50 dark:bg-[#161616] rounded-2xl p-6 border border-purple-500/30 flex flex-col relative overflow-hidden shadow-md dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-purple-500/30 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <div className="absolute top-0 right-0 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg">Popular</div>
-              <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Premium</h3>
-              <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">$2.500.000</span>
-                <span className="text-xs text-gray-500">COP</span>
-              </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
-                Para empresas que priorizan la conversión, y el diseño a medida.
-              </p>
-              <button onClick={() => handleNavigation('contact')} className="w-full py-3 bg-black dark:bg-white/10 border border-transparent dark:border-white/20 rounded-lg text-sm font-bold text-white hover:opacity-80 dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
-                Solicitar Premium
-              </button>
+            {/* Plan 3: Premium - ANIMATED */}
+            <div className="bg-gradient-to-br from-purple-900/20 via-magenta-900/20 to-cyan-900/20 dark:bg-gradient-to-br dark:from-purple-900/30 dark:via-magenta-900/30 dark:to-cyan-900/30 rounded-2xl p-6 border border-purple-500/50 flex flex-col relative overflow-hidden shadow-lg dark:shadow-purple-500/30 transition-all duration-300 transform hover:-translate-y-3 hover:shadow-2xl dark:hover:shadow-purple-500/50 animate-fade-in group" style={{ animationDelay: '0.3s' }}>
+              {/* Animated gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-magenta-500/10 to-purple-500/10 bg-[length:200%_100%] animate-gradient-flow"></div>
 
-              <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Todo lo de Profesional</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> 10 Secciones</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Diseño 100% único</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Blog integrado</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> SEO avanzado</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Analytics</li>
-              </ul>
+              {/* Pulsing glow */}
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-magenta-500/20 to-cyan-500/20 blur-xl animate-pulse-slow"></div>
+
+              {/* Popular badge */}
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-purple-600 to-magenta-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-lg shadow-lg">
+                Popular ⭐
+              </div>
+
+              <div className="relative z-10">
+                <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:via-magenta-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300">Premium</h3>
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-3xl font-bold text-gray-900 dark:text-white">$2.500.000</span>
+                  <span className="text-xs text-gray-500">COP</span>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
+                  Para empresas que priorizan la conversión, y el diseño a medida.
+                </p>
+                <button onClick={() => handleNavigation('contact')} className="w-full py-3 bg-gradient-to-r from-purple-600 via-magenta-600 to-cyan-600 border border-transparent rounded-lg text-sm font-bold text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all duration-300 transform hover:scale-105 mb-8">
+                  Solicitar Premium
+                </button>
+
+                <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> Todo lo de Profesional</li>
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> 10 Secciones</li>
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> Diseño 100% único</li>
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> Blog integrado</li>
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> SEO avanzado</li>
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> Analytics</li>
+                </ul>
+              </div>
             </div>
 
             {/* Plan 4: Corporativo */}
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-green-500/20 hover:border-green-500/30 dark:hover:border-green-500/30 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Corporativo</h3>
-              <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">A cotizar</span>
-              </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
-                Soluciones a medida para proyectos complejos y escalables.
-              </p>
-              <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
-                Contactar para Corporativo
-              </button>
+            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-yellow-500/20 hover:border-yellow-500/30 dark:hover:border-yellow-500/30 animate-fade-in relative overflow-hidden" style={{ animationDelay: '0.4s' }}>
+              {/* Gradual Blur Effect */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50 dark:to-black/50 pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)' }}></div>
 
-              <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Todo lo de Premium</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Secciones a medida</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Integraciones APIs</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> A/B testing</li>
-                <li className="flex gap-2"><div className="bg-gray-100 dark:bg-white text-black rounded-full p-0.5"><Check size={10} /></div> Soporte extendido</li>
-              </ul>
+              <div className="relative z-10">
+                <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Corporativo</h3>
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-3xl font-bold text-gray-900 dark:text-white">A cotizar</span>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">
+                  Soluciones a medida para proyectos complejos y escalables.
+                </p>
+                <button onClick={() => handleNavigation('contact')} className="w-full py-3 border border-gray-300 dark:border-white/20 rounded-lg text-sm font-bold text-gray-900 dark:text-white hover:bg-black hover:text-white dark:hover:bg-yellow-500 dark:hover:text-black transition-all duration-300 transform hover:scale-105 mb-8">
+                  Contactar para Corporativo
+                </button>
+
+                <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full p-0.5"><Check size={10} /></div> Todo lo de Premium</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full p-0.5"><Check size={10} /></div> Secciones a medida</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full p-0.5"><Check size={10} /></div> Integraciones APIs</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full p-0.5"><Check size={10} /></div> A/B testing</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full p-0.5"><Check size={10} /></div> Soporte extendido</li>
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -353,8 +389,8 @@ const App: React.FC = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'dark' : ''}`}>
-      <div className={`${theme === 'dark' ? 'bg-[#050505]' : 'bg-white'} ${theme === 'dark' ? 'text-white' : 'text-gray-900'} min-h-screen`}>
-        <Navbar onNavigate={handleNavigation} theme={theme} toggleTheme={toggleTheme} />
+      <div className={`${theme === 'dark' ? 'bg-[#060010]' : 'bg-white'} ${theme === 'dark' ? 'text-white' : 'text-gray-900'} min-h-screen`}>
+        <Navbar onNavigate={handleNavigation} theme={theme} toggleTheme={toggleTheme} currentPage={currentPage} />
 
         <main>
           {currentPage === 'home' && renderHome()}
