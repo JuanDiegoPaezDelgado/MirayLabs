@@ -52,8 +52,24 @@ const App: React.FC = () => {
       <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
         {/* Liquid Ether Background */}
         <div className="absolute inset-0 z-0">
-          <div className="hidden dark:block">
-            <LiquidEther />
+          <div className="hidden dark:block" style={{ width: '100%', height: '100%' }}>
+            <LiquidEther
+              colors={['#5227FF', '#FF9FFC', '#B19EEF']}
+              mouseForce={20}
+              cursorSize={100}
+              isViscous={false}
+              viscous={30}
+              iterationsViscous={32}
+              iterationsPoisson={32}
+              resolution={0.5}
+              isBounce={false}
+              autoDemo={true}
+              autoSpeed={0.5}
+              autoIntensity={2.2}
+              takeoverDuration={0.25}
+              autoResumeDelay={3000}
+              autoRampDuration={0.6}
+            />
           </div>
           {/* Light Mode Gradient */}
           <div className="dark:hidden absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"></div>
