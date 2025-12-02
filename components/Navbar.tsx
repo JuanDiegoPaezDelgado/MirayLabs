@@ -21,16 +21,19 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, theme, toggleTheme, current
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { id: 'home', label: 'Inicio' },
-    { id: 'company', label: 'Empresa' },
-  ];
-
+  // 1. Definimos los servicios (contenido del dropdown)
   const services = [
     { id: 'websites', label: 'Sitios Web', description: 'Desarrollo web a medida', icon: Globe },
     { id: 'custom-software', label: 'Software a Medida', description: 'SaaS y Apps Escalables', icon: Code },
     { id: 'staffing', label: 'Staffing', description: 'Talento TI especializado', icon: Users },
     { id: 'automation', label: 'Automatización & IA', description: 'Optimización de procesos', icon: Bot },
+  ];
+
+  // 2. Definimos la estructura principal del menú en el orden deseado
+  const menuStructure = [
+    { id: 'home', label: 'Inicio', type: 'link' },
+    { id: 'services', label: 'Servicios', type: 'dropdown' }, // Posición central
+    { id: 'company', label: 'Empresa', type: 'link' },
   ];
 
   return (
@@ -74,68 +77,75 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, theme, toggleTheme, current
             </span>
           </div>
 
-          {/* Desktop Links */}
+          {/* Desktop Links (Dynamic Mapping) */}
           <div className="hidden md:flex items-center gap-1 mx-4">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => onNavigate(item.id)}
-                className="relative group px-5 py-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300"
-              >
-                <span className={`text-sm font-medium transition-colors duration-300 ${currentPage === item.id
+            {menuStructure.map((item) => {
+              if (item.type === 'dropdown') {
+                // Renderizado del Dropdown (Servicios)
+                return (
+                  <div key={item.id} className="relative group px-2">
+                    <button className="flex items-center gap-1.5 py-2.5 px-4 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300">
+                      <span className="text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors">
+                        {item.label}
+                      </span>
+                      <ChevronDown size={14} className="text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:rotate-180 transition-all duration-300" />
+                    </button>
+
+                    {/* Desktop Dropdown - Floating Card */}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 w-[320px]">
+                      <div
+                        className="bg-white/90 dark:bg-[#0a0a0a]/95 border border-gray-200 dark:border-white/10 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.2)] overflow-hidden p-2"
+                        style={{ backdropFilter: 'blur(20px)' }}
+                      >
+                        <div className="px-4 py-3 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider flex items-center gap-2">
+                          <Sparkles size={12} className="text-cyan-400" />
+                          Explorar Servicios
+                        </div>
+                        <div className="space-y-1">
+                          {services.map((service) => {
+                            const Icon = service.icon;
+                            return (
+                              <button
+                                key={service.id}
+                                onClick={() => onNavigate(service.id)}
+                                className="w-full flex items-start gap-4 p-3 rounded-2xl hover:bg-gray-100 dark:hover:bg-white/5 transition-all duration-300 group/item text-left relative overflow-hidden"
+                              >
+                                <div className="relative w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-500 dark:text-gray-400 group-hover/item:text-cyan-400 group-hover/item:bg-cyan-400/10 transition-all duration-300">
+                                  <Icon size={20} />
+                                </div>
+                                <div>
+                                  <span className="block text-sm font-bold text-gray-900 dark:text-white group-hover/item:text-cyan-400 transition-colors">{service.label}</span>
+                                  <span className="block text-xs text-gray-500 dark:text-gray-400 mt-0.5">{service.description}</span>
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              // Renderizado de Links normales (Inicio, Empresa)
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onNavigate(item.id)}
+                  className="relative group px-5 py-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300"
+                >
+                  <span className={`text-sm font-medium transition-colors duration-300 ${currentPage === item.id
                     ? 'text-black dark:text-white'
                     : 'text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white'
-                  }`}>
-                  {item.label}
-                </span>
-                {currentPage === item.id && (
-                  <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(0,212,255,0.8)]"></span>
-                )}
-              </button>
-            ))}
-
-            {/* Dropdown Premium */}
-            <div className="relative group px-2">
-              <button className="flex items-center gap-1.5 py-2.5 px-4 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300">
-                <span className="text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors">
-                  Servicios
-                </span>
-                <ChevronDown size={14} className="text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:rotate-180 transition-all duration-300" />
-              </button>
-
-              {/* Desktop Dropdown - Floating Card */}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 w-[320px]">
-                <div
-                  className="bg-white/90 dark:bg-[#0a0a0a]/95 border border-gray-200 dark:border-white/10 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.2)] overflow-hidden p-2"
-                  style={{ backdropFilter: 'blur(20px)' }}
-                >
-                  <div className="px-4 py-3 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider flex items-center gap-2">
-                    <Sparkles size={12} className="text-cyan-400" />
-                    Explorar Servicios
-                  </div>
-                  <div className="space-y-1">
-                    {services.map((service, index) => {
-                      const Icon = service.icon;
-                      return (
-                        <button
-                          key={service.id}
-                          onClick={() => onNavigate(service.id)}
-                          className="w-full flex items-start gap-4 p-3 rounded-2xl hover:bg-gray-100 dark:hover:bg-white/5 transition-all duration-300 group/item text-left relative overflow-hidden"
-                        >
-                          <div className="relative w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-500 dark:text-gray-400 group-hover/item:text-cyan-400 group-hover/item:bg-cyan-400/10 transition-all duration-300">
-                            <Icon size={20} />
-                          </div>
-                          <div>
-                            <span className="block text-sm font-bold text-gray-900 dark:text-white group-hover/item:text-cyan-400 transition-colors">{service.label}</span>
-                            <span className="block text-xs text-gray-500 dark:text-gray-400 mt-0.5">{service.description}</span>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
+                    }`}>
+                    {item.label}
+                  </span>
+                  {currentPage === item.id && (
+                    <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(0,212,255,0.8)]"></span>
+                  )}
+                </button>
+              );
+            })}
           </div>
 
           {/* Right Actions */}
@@ -186,41 +196,49 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, theme, toggleTheme, current
           `}
         >
           <div className="p-4 space-y-2">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => { onNavigate(item.id); setMobileMenuOpen(false); }}
-                className={`w-full text-left px-4 py-3 rounded-2xl transition-all duration-300 ${currentPage === item.id
+            {menuStructure.map((item) => {
+              // Vista Móvil: Sección Servicios
+              if (item.type === 'dropdown') {
+                return (
+                  <div key={item.id} className="pt-2 pb-2">
+                    <div className="px-4 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">
+                      {item.label}
+                    </div>
+                    <div className="grid grid-cols-1 gap-1">
+                      {services.map((service) => {
+                        const Icon = service.icon;
+                        return (
+                          <button
+                            key={service.id}
+                            onClick={() => { onNavigate(service.id); setMobileMenuOpen(false); }}
+                            className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-all duration-300 text-left group"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-500 dark:text-gray-400 group-hover:text-cyan-400 transition-colors">
+                              <Icon size={16} />
+                            </div>
+                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{service.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              }
+
+              // Vista Móvil: Links normales (Inicio, Empresa)
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => { onNavigate(item.id); setMobileMenuOpen(false); }}
+                  className={`w-full text-left px-4 py-3 rounded-2xl transition-all duration-300 ${currentPage === item.id
                     ? 'bg-gray-100 dark:bg-white/10 text-black dark:text-white font-bold'
                     : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5'
-                  }`}
-              >
-                {item.label}
-              </button>
-            ))}
-
-            <div className="pt-4 pb-2">
-              <div className="px-4 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">
-                Servicios
-              </div>
-              <div className="grid grid-cols-1 gap-1">
-                {services.map((service) => {
-                  const Icon = service.icon;
-                  return (
-                    <button
-                      key={service.id}
-                      onClick={() => { onNavigate(service.id); setMobileMenuOpen(false); }}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-all duration-300 text-left group"
-                    >
-                      <div className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-500 dark:text-gray-400 group-hover:text-cyan-400 transition-colors">
-                        <Icon size={16} />
-                      </div>
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{service.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+                    }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
 
             <div className="flex items-center justify-between px-4 py-4 border-t border-gray-100 dark:border-white/5 mt-2">
               <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Tema</span>

@@ -169,6 +169,8 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
             <span className="text-xl font-bold text-gray-900 dark:text-white">Node.js</span>
             <span className="text-xl font-bold text-gray-900 dark:text-white">Vercel</span>
             <span className="text-xl font-bold text-gray-900 dark:text-white">AWS</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">Java</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">Spring boot</span>
           </div>
         </div>
       </section>
