@@ -52,27 +52,7 @@ const App: React.FC = () => {
       <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
         {/* Liquid Ether Background */}
         <div className="absolute inset-0 z-0">
-          <div className="hidden dark:block" style={{ width: '100%', height: '100%' }}>
-            <LiquidEther
-              colors={['#5227FF', '#FF9FFC', '#B19EEF']}
-              mouseForce={15}
-              cursorSize={80}
-              isViscous={false}
-              viscous={30}
-              iterationsViscous={16}
-              iterationsPoisson={16}
-              resolution={0.35}
-              isBounce={false}
-              autoDemo={true}
-              autoSpeed={0.4}
-              autoIntensity={1.8}
-              takeoverDuration={0.25}
-              autoResumeDelay={3000}
-              autoRampDuration={0.6}
-            />
-          </div>
-          {/* Light Mode Gradient */}
-          <div className="dark:hidden absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"></div>
+          <LiquidEther />
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8 py-20">
@@ -228,18 +208,18 @@ const App: React.FC = () => {
                 </button>
 
                 <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> 5 Secciones</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> Entrega en 5 días</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> Hosting (1er año)</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> Dominio (1er año)</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> Certificado SSL</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full p-0.5"><Check size={10} /></div> Diseño con plantilla</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> 5 Secciones</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Entrega en 5 días</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Hosting (1er año)</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Dominio (1er año)</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Certificado SSL</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-cyan-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Diseño con plantilla</li>
                 </ul>
               </div>
             </div>
 
             {/* Plan 2: Profesional */}
-            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-magenta-500/20 hover:border-magenta-500/30 dark:hover:border-magenta-500/30 animate-fade-in relative overflow-hidden" style={{ animationDelay: '0.2s' }}>
+            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-200 dark:border-white/5 flex flex-col shadow-sm dark:shadow-none transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg dark:hover:shadow-orange-500/20 hover:border-orange-500/30 dark:hover:border-orange-500/30 animate-fade-in relative overflow-hidden" style={{ animationDelay: '0.2s' }}>
               {/* Gradual Blur Effect */}
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50 dark:to-black/50 pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)' }}></div>
 
@@ -257,11 +237,11 @@ const App: React.FC = () => {
                 </button>
 
                 <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full p-0.5"><Check size={10} /></div> Todo lo de Básico</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full p-0.5"><Check size={10} /></div> 8 Secciones</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full p-0.5"><Check size={10} /></div> Formulario avanzado</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full p-0.5"><Check size={10} /></div> SEO básico</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full p-0.5"><Check size={10} /></div> Integración Maps</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Todo lo de Básico</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0  "><Check size={10} /></div> 8 Secciones</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0  "><Check size={10} /></div> Formulario avanzado</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0  "><Check size={10} /></div> SEO básico</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-magenta-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0  "><Check size={10} /></div> Integración Maps</li>
                 </ul>
               </div>
             </div>
@@ -293,12 +273,12 @@ const App: React.FC = () => {
                 </button>
 
                 <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
-                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> Todo lo de Profesional</li>
-                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> 10 Secciones</li>
-                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> Diseño 100% único</li>
-                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> Blog integrado</li>
-                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> SEO avanzado</li>
-                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full p-0.5"><Check size={10} /></div> Analytics</li>
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Todo lo de Profesional</li>
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> 10 Secciones</li>
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Diseño 100% único</li>
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Blog integrado</li>
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> SEO avanzado</li>
+                  <li className="flex gap-2"><div className="bg-gradient-to-r from-purple-500 to-magenta-500 text-white rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Analytics</li>
                 </ul>
               </div>
             </div>
@@ -321,11 +301,11 @@ const App: React.FC = () => {
                 </button>
 
                 <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-300 flex-1">
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full p-0.5"><Check size={10} /></div> Todo lo de Premium</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full p-0.5"><Check size={10} /></div> Secciones a medida</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full p-0.5"><Check size={10} /></div> Integraciones APIs</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full p-0.5"><Check size={10} /></div> A/B testing</li>
-                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full p-0.5"><Check size={10} /></div> Soporte extendido</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Todo lo de Premium</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Secciones a medida</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Integraciones APIs</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> A/B testing</li>
+                  <li className="flex gap-2"><div className="bg-gray-100 dark:bg-yellow-400 text-black rounded-full w-5 h-5 flex items-center justify-center shrink-0"><Check size={10} /></div> Soporte extendido</li>
                 </ul>
               </div>
             </div>

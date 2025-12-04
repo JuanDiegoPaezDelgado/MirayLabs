@@ -44,7 +44,7 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
     return (
         <div
             ref={cardRef}
-            className={`relative  ${className}`}
+            className={`relative ${className}`}
         >
             {/* Spotlight effect */}
             {isHovered && (

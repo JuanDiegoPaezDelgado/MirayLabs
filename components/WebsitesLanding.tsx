@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   ArrowRight,
@@ -17,6 +16,8 @@ import {
   Minus,
   Check
 } from 'lucide-react';
+import ColorBends from './ColorBends';
+import SpotlightCard from './SpotlightCard';
 
 const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'dark' | 'light' }> = ({ onNavigate, theme = 'dark' }) => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -29,28 +30,41 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
   return (
     <div className={`animate-fade-in ${isDark ? 'dark' : ''} bg-white dark:bg-[#050505] text-gray-900 dark:text-white`}>
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 bg-white dark:bg-[#050505]">
-        <div className="absolute inset-0 z-0 bg-gray-50 dark:bg-[#0a0a0a]">
-          <div className="hidden dark:block stars absolute inset-0"></div>
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 bg-transparent dark:bg-transparent overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <ColorBends
+            colors={["#ff5c7a", "#8a5cff", "#00ffd1", "#ffd700"]}
+            rotation={30}
+            scale={1.2}
+            frequency={1.4}
+            warpStrength={1.2}
+            mouseInfluence={0.8}
+            parallax={0.6}
+            noise={0.08}
+            transparent={true}
+            speed={2}
+            className="w-full h-full"
+          />
+          <div className="absolute inset-0 pointer-events-none select-none z-10 bg-gradient-to-b from-transparent via-white/40 to-white dark:from-transparent dark:via-[#050505]/40 dark:to-[#050505]"></div>
+          <div className="absolute inset-0 bg-white/10 dark:bg-black/10 backdrop-blur-[1px] z-0"></div>
         </div>
-        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
+
+        <div className="relative z-20 max-w-5xl mx-auto text-center space-y-8">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-gray-900 dark:text-white leading-[1.1]">
-            Creamos Sitios Web que <br />
-            <span className="font-serif italic font-light text-gray-600 dark:text-gray-300">Convierten</span> Visitantes en Clientes.
+            Creamos Experiencias Web que <br />
+            <span className="font-serif italic font-light text-gray-600 dark:text-gray-300">Enamoran, Convencen y Cierran</span>
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Desde páginas de aterrizaje impactantes hasta e-commerce robustos, diseñamos y desarrollamos experiencias digitales a medida que impulsan el crecimiento de tu negocio.
-          </p>
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <button
               onClick={() => onNavigate('contact')}
-              className="bg-gray-900 text-white dark:bg-[#1a1a1a] dark:text-white border border-gray-300 dark:border-white/10 px-8 py-3.5 rounded-full font-medium hover:bg-black dark:hover:bg-gray-800 transition-all w-full sm:w-auto"
+              className="bg-gray-900 text-white dark:bg-[#1a1a1a] dark:text-white border border-gray-300 dark:border-white/10 px-8 py-3.5 rounded-full font-medium hover:bg-black dark:hover:bg-gray-800 transition-all w-full sm:w-auto shadow-lg hover:shadow-xl"
             >
               Calcular Presupuesto
             </button>
             <button
               onClick={() => onNavigate('contact')}
-              className="bg-white dark:bg-transparent text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 px-8 py-3.5 rounded-full font-bold hover:bg-gray-100 dark:hover:bg-[#111] transition-colors w-full sm:w-auto"
+              className="bg-white/80 dark:bg-transparent text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 px-8 py-3.5 rounded-full font-bold hover:bg-gray-100 dark:hover:bg-[#111] transition-colors w-full sm:w-auto backdrop-blur-sm"
             >
               Agendar Asesoría
             </button>
@@ -63,16 +77,17 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white">Construimos la Solución Web Perfecta para Ti</h2>
-            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Cada negocio es único. Por eso, no ofrecemos soluciones genéricas, sino experiencias web a medida.</p>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Combinamos diseño atractivo, storytelling y tecnología a
+              medida que tu sitio hable el idioma de tus clientes ideales.</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { title: 'Tiendas E-commerce', desc: 'Plataformas de venta online seguras, rápidas y optimizadas para la conversión.', icon: <Layout /> },
-              { title: 'Landing Pages de Alta Conversión', desc: 'Páginas diseñadas estratégicamente para capturar leads y maximizar ROI.', icon: <BarChart /> },
+              { title: 'Landing Pages', desc: 'Páginas diseñadas estratégicamente para capturar leads y maximizar ROI.', icon: <BarChart /> },
               { title: 'Sitios Web Corporativos', desc: 'Comunica la propuesta de valor de tu empresa con un sitio profesional.', icon: <Globe /> },
               { title: 'Aplicaciones Web (SaaS)', desc: 'Desde MVPs hasta plataformas complejas, construimos apps robustas.', icon: <Layers /> },
-              { title: 'Portafolios y Marca Personal', desc: 'Muestra tu trabajo de una manera impactante y profesional.', icon: <UserCardIcon /> },
+              { title: 'Portafolios', desc: 'Muestra tu trabajo de una manera impactante y profesional.', icon: <UserCardIcon /> },
               { title: 'Blogs y Contenido', desc: 'Sistemas de gestión de contenido (CMS) flexibles y optimizados para SEO.', icon: <Database /> },
             ].map((item, i) => (
               <div key={i} className="bg-white dark:bg-[#111] p-8 rounded-2xl border border-gray-200 dark:border-white/5 hover:border-purple-500/30 transition-colors group">
@@ -127,9 +142,7 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
           </div>
 
           <div className="grid md:grid-cols-2 gap-16 relative">
-            {/* Center Line (Hidden on mobile) */}
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2"></div>
-
             {[
               { step: '01', title: 'Descubrimiento y Estrategia', desc: 'Nos sumergimos en tu negocio y objetivos para definir una estrategia clara.', align: 'right' },
               { step: '02', title: 'Diseño y Prototipado', desc: 'Creamos wireframes y diseños visuales que dan vida a la estrategia.', align: 'left' },
@@ -137,13 +150,7 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
               { step: '04', title: 'Lanzamiento y Optimización', desc: 'Gestionamos el despliegue y monitoreamos el rendimiento para asegurar el éxito.', align: 'left' },
             ].map((item, i) => (
               <div key={i} className={`relative ${i % 2 === 0 ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12 md:col-start-2'}`}>
-                {/* Dot on line */}
-                <div className={`hidden md:flex absolute top-0 w-8 h-8 rounded-full bg-[#333] border-4 border-[#050505] items-center justify-center text-[10px] font-bold text-gray-900 dark:text-white z-10
-                  ${i % 2 === 0 ? 'right-[-2.05rem]' : 'left-[-2.05rem]'}
-                `}>
-                  {/* Small dot inner */}
-                </div>
-
+                <div className={`hidden md:flex absolute top-0 w-8 h-8 rounded-full bg-[#333] border-4 border-[#050505] items-center justify-center text-[10px] font-bold text-gray-900 dark:text-white z-10 ${i % 2 === 0 ? 'right-[-2.05rem]' : 'left-[-2.05rem]'}`}></div>
                 <div className="inline-block bg-[#4f46e5] text-gray-900 dark:text-white font-bold rounded-full w-10 h-10 flex items-center justify-center mb-4 text-sm shadow-lg shadow-indigo-500/20">
                   {item.step}
                 </div>
@@ -160,101 +167,171 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Tecnologías que Impulsan Nuestros Proyectos</h2>
           <p className="text-gray-600 dark:text-gray-500 text-sm mb-12">Utilizamos un stack tecnológico moderno para construir sitios rápidos y seguros.</p>
-
           <div className="flex flex-wrap justify-center gap-12 opacity-40 grayscale">
-            <span className="text-xl font-bold text-gray-900 dark:text-white">Next.js</span>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">React</span>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">TypeScript</span>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">Tailwind</span>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">Node.js</span>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">Vercel</span>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">AWS</span>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">Java</span>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">Spring boot</span>
+            {["Next.js", "React", "TypeScript", "Tailwind", "Node.js", "Vercel", "AWS", "Java", "Spring boot"].map(tech => (
+              <span key={tech} className="text-xl font-bold text-gray-900 dark:text-white">{tech}</span>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* --- PRICING TABLE --- */}
+      {/* --- PRICING CARDS (SAME SIZE & DIFFERENT COLORS) --- */}
       <section className="py-24 px-6 bg-gray-50 dark:bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Planes web a tu medida</h2>
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              Inversión Transparente
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400">
+              Elige el paquete que mejor se adapte a tu etapa actual.
+            </p>
           </div>
 
-          <div className="overflow-x-auto">
-            <div className="min-w-[900px]">
-              {/* Header Row */}
-              <div className="grid grid-cols-5 gap-4 mb-8">
-                <div className="col-span-1 flex items-end pb-4">
-                  <span className="font-bold text-lg text-gray-900 dark:text-white">Característica</span>
-                </div>
-                {[
-                  { name: 'Básico', price: '999.000', sub: 'Negocios que quieren estar online rápido', highlight: false },
-                  { name: 'Profesional', price: '1.600.000', sub: 'Pymes que buscan captar más clientes', highlight: false },
-                  { name: 'Premium', price: '2.500.000', sub: 'Empresas que priorizan conversión', highlight: true },
-                  { name: 'Corporativo', price: 'A cotizar', sub: 'Proyectos a medida y escalables', highlight: false },
-                ].map((plan, i) => (
-                  <div key={i} className={`col-span-1 p-6 rounded-t-xl text-center flex flex-col justify-end ${plan.highlight ? 'bg-[#2e1065] border-t border-x border-purple-500/30' : ''}`}>
-                    <h3 className="font-bold text-gray-900 dark:text-white text-lg">{plan.name}</h3>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-2 h-8">{plan.sub}</p>
-                    <div className="text-xl font-bold text-gray-900 dark:text-white mb-4">{plan.price} <span className="text-xs font-normal text-gray-600 dark:text-gray-400">COP</span></div>
-                    <button
-                      onClick={() => onNavigate('contact')}
-                      className={`w-full py-2 rounded text-xs font-bold transition-colors ${plan.highlight ? 'bg-purple-600 text-gray-900 dark:text-white hover:bg-purple-700' : 'border border-white/20 text-gray-900 dark:text-white hover:bg-white hover:text-black'}`}
-                    >
-                      {plan.price === 'A cotizar' ? 'Contactar' : `Solicitar ${plan.name}`}
-                    </button>
-                  </div>
-                ))}
-              </div>
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6 items-stretch">
+            {[
+              {
+                name: 'Básico',
+                price: '999.000',
+                desc: 'Perfecto para negocios que necesitan presencia digital inmediata.',
+                features: ['5 Secciones Clave', 'Diseño Plantilla Optimizada', 'Formulario de Contacto', 'Hosting + Dominio (1 año)', 'Certificado SSL Seguro'],
+                cta: 'Iniciar Básico',
+                // Color Cyan
+                spotlight: 'rgba(34, 211, 238, 0.25)',
+                borderColor: 'border-cyan-500/20 hover:border-cyan-500/80',
+                textColor: 'text-cyan-400',
+                checkColor: 'bg-cyan-500/20 text-cyan-400',
+                btnClass: 'hover:bg-cyan-500 hover:text-black dark:hover:text-black'
+              },
+              {
+                name: 'Profesional',
+                price: '1.600.000',
+                desc: 'Para Pymes que buscan posicionarse y captar clientes en Google.',
+                features: ['8 Secciones', 'Diseño Personalizado', 'SEO Básico + Keywords', 'Google Maps + Analytics', 'Formularios Avanzados', 'Blog Autoadministrable'],
+                cta: 'Iniciar Profesional',
+                // Color Rosa/Magenta
+                spotlight: 'rgba(236, 72, 153, 0.25)',
+                borderColor: 'border-pink-500/20 hover:border-pink-500/80',
+                textColor: 'text-pink-400',
+                checkColor: 'bg-pink-500/20 text-pink-400',
+                btnClass: 'hover:bg-pink-500 hover:text-white'
+              },
+              {
+                name: 'Premium',
+                price: '2.500.000',
+                desc: 'La herramienta definitiva para empresas enfocadas en ventas.',
+                features: ['10 Secciones', 'Diseño 100% A Medida', 'SEO Técnico Avanzado', 'Copywriting Persuasivo', 'Configuración de Eventos (GA4)', 'Soporte Prioritario'],
+                cta: 'Quiero el Premium',
+                highlight: true,
+                // Color Violeta
+                spotlight: 'rgba(139, 92, 246, 0.25)',
+                borderColor: 'border-purple-500/50 hover:border-purple-500',
+                textColor: 'text-purple-400',
+                checkColor: 'bg-purple-500/20 text-purple-400',
+                btnClass: 'bg-purple-600 text-white hover:bg-purple-500 hover:scale-[1.02] shadow-lg shadow-purple-500/25'
+              },
+              {
+                name: 'Corporativo',
+                price: 'A cotizar',
+                desc: 'Arquitectura escalable para proyectos de alto tráfico.',
+                features: ['Secciones Ilimitadas', 'Desarrollo Custom (React/Next)', 'Integraciones API / CRM', 'Panel de Control a Medida', 'Auditoría de Seguridad'],
+                cta: 'Agendar Reunión',
+                // Color Ambar/Amarillo
+                spotlight: 'rgba(245, 158, 11, 0.25)',
+                borderColor: 'border-amber-500/20 hover:border-amber-500/80',
+                textColor: 'text-amber-400',
+                checkColor: 'bg-amber-500/20 text-amber-400',
+                btnClass: 'hover:bg-amber-500 hover:text-black dark:hover:text-black'
+              },
+            ].map((plan, i) => (
+              <SpotlightCard
+                key={i}
+                spotlightColor={plan.spotlight}
+                className="h-full" // Asegura que el contenedor del spotlight ocupe toda la altura
+              >
+                <div
+                  className={`
+                    relative flex flex-col p-8 h-full rounded-3xl border transition-all duration-300
+                    bg-white dark:bg-[#111]
+                    ${plan.borderColor}
+                    ${plan.highlight ? 'shadow-[0_0_30px_-10px_rgba(147,51,234,0.15)] z-10' : ''}
+                  `}
+                >
+                  {/* Badge de Popular para el Premium */}
+                  {plan.highlight && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1 z-20">
+                      <Zap size={12} fill="currentColor" /> RECOMENDADO
+                    </div>
+                  )}
 
-              {/* Rows Group: General */}
-              <div className="mb-8">
-                <div className="text-xs font-bold text-gray-600 dark:text-gray-500 uppercase tracking-wider mb-4 px-4">General</div>
-                {[
-                  { label: 'Secciones', vals: ['5 secciones', '8 secciones', '10 secciones', 'A definir'] },
-                  { label: 'Diseño', vals: ['Plantilla optimizada', 'Más personalización', '100% personalizado', 'Custom FX'] },
-                  { label: 'Formularios', vals: ['Contacto simple', 'Avanzado', 'Optimizado conversión', 'A medida'] },
-                ].map((row, i) => (
-                  <div key={i} className="grid grid-cols-5 gap-4 py-4 border-b border-white/5 px-4 hover:bg-white/5 transition-colors">
-                    <div className="col-span-1 text-sm font-medium text-gray-700 dark:text-gray-300">{row.label}</div>
-                    {row.vals.map((val, j) => (
-                      <div key={j} className={`col-span-1 text-sm text-center ${j === 2 ? 'font-semibold text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>{val}</div>
+                  {/* Header */}
+                  <div className="mb-6 relative z-10">
+                    <h3 className={`text-xl font-bold mb-2 text-gray-900 dark:text-white`}>
+                      {plan.name}
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 min-h-[40px] leading-relaxed">
+                      {plan.desc}
+                    </p>
+                  </div>
+
+                  {/* Precio */}
+                  <div className="mb-8 relative z-10 pb-6 border-b border-gray-100 dark:border-white/5">
+                    <div className="flex items-baseline text-gray-900 dark:text-white">
+                      {plan.price === 'A cotizar' ? (
+                        <span className="text-3xl font-bold tracking-tight">A cotizar</span>
+                      ) : (
+                        <>
+                          <span className="text-3xl font-bold tracking-tight">${plan.price}</span>
+                        </>
+                      )}
+                    </div>
+                    {plan.price !== 'A cotizar' && (
+                      <div className="text-xs text-gray-400 font-medium mt-2 flex items-center gap-1">
+                        <Check size={12} className={plan.textColor} /> Pago único
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Lista de Features */}
+                  <ul className="space-y-4 mb-8 flex-1 relative z-10">
+                    {plan.features.map((feature, j) => (
+                      <li key={j} className="flex items-start gap-3">
+                        <div className={`mt-0.5 rounded-full p-0.5 shrink-0 ${plan.checkColor}`}>
+                          <Check size={12} strokeWidth={3} />
+                        </div>
+                        <span className="text-sm text-gray-600 dark:text-gray-300 leading-tight">
+                          {feature}
+                        </span>
+                      </li>
                     ))}
-                  </div>
-                ))}
-              </div>
+                  </ul>
 
-              {/* Rows Group: Técnico */}
-              <div className="mb-8">
-                <div className="text-xs font-bold text-gray-600 dark:text-gray-500 uppercase tracking-wider mb-4 px-4">Técnico</div>
-                {[
-                  { label: 'SEO', vals: ['Básico', 'Básico + keywords', 'SEO Avanzado', 'Técnico + Auditoría'] },
-                  { label: 'Analytics', vals: ['GA Básico', 'Google Maps + GA', 'Eventos Clave', 'Tracking Ads listo'] },
-                ].map((row, i) => (
-                  <div key={i} className="grid grid-cols-5 gap-4 py-4 border-b border-white/5 px-4 hover:bg-white/5 transition-colors">
-                    <div className="col-span-1 text-sm font-medium text-gray-700 dark:text-gray-300">{row.label}</div>
-                    {row.vals.map((val, j) => (
-                      <div key={j} className={`col-span-1 text-sm text-center ${j === 2 ? 'font-semibold text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>{val}</div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-
-              {/* Rows Group: Extra */}
-              <div className="mb-8">
-                <div className="text-xs font-bold text-gray-600 dark:text-gray-500 uppercase tracking-wider mb-4 px-4">Extras Incluidos</div>
-                <div className="grid grid-cols-5 gap-4 py-4 border-b border-white/5 px-4 hover:bg-white/5 transition-colors">
-                  <div className="col-span-1 text-sm font-medium text-gray-700 dark:text-gray-300">Extra</div>
-                  <div className="col-span-1 text-sm text-center text-gray-600 dark:text-gray-400">SSL + Hosting (1 año)</div>
-                  <div className="col-span-1 text-sm text-center text-gray-600 dark:text-gray-400">Asesoría correo</div>
-                  <div className="col-span-1 text-sm text-center font-semibold text-gray-900 dark:text-white bg-purple-900/20 py-2 rounded">Copywriting + Multi-idioma</div>
-                  <div className="col-span-1 text-sm text-center text-gray-600 dark:text-gray-400">Integraciones + A/B Testing</div>
+                  {/* Botón CTA */}
+                  <button
+                    onClick={() => onNavigate('contact')}
+                    className={`
+                      w-full py-4 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 relative z-10
+                      ${plan.highlight
+                        ? plan.btnClass
+                        : `bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white ${plan.btnClass}`
+                      }
+                    `}
+                  >
+                    {plan.cta}
+                    <ArrowRight size={16} />
+                  </button>
                 </div>
-              </div>
+              </SpotlightCard>
+            ))}
+          </div>
 
-            </div>
+          <div className="mt-16 text-center">
+            <p className="text-gray-500 dark:text-gray-500 text-sm mb-4">¿Necesitas ver los detalles técnicos?</p>
+            <button
+              onClick={() => onNavigate('contact')}
+              className="text-gray-900 dark:text-white font-semibold underline underline-offset-4 hover:text-purple-500 transition-colors"
+            >
+              Solicitar tabla comparativa completa
+            </button>
           </div>
         </div>
       </section>
@@ -263,7 +340,7 @@ const WebsitesLanding: React.FC<{ onNavigate: (page: string) => void; theme?: 'd
       <section className="py-24 px-6 bg-white dark:bg-[#050505]">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Preguntas Frecuentes sobre Sitios Web</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Preguntas Frecuentes</h2>
           </div>
           <div className="space-y-4">
             {[
@@ -300,6 +377,3 @@ const UserCardIcon = (props: any) => (
 )
 
 export default WebsitesLanding;
-
-
-
