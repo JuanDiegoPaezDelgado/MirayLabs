@@ -1,16 +1,17 @@
 // @ts-nocheck
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, memo } from 'react';
 import * as THREE from 'three';
 import './LiquidEther.css';
 
-export default function LiquidEther({
-    fps = 0, // Nuevo: 0 = Nativo (60/144hz), > 0 = Limite específico (ej. 30)
+// Definimos la función del componente separadamente para evitar conflictos de declaración
+function LiquidEtherImpl({
+    fps = 0,
     mouseForce = 20,
     cursorSize = 100,
     isViscous = false,
-    viscous = 30,
-    iterationsViscous = 32,
-    iterationsPoisson = 32,
+    viscous = 20,
+    iterationsViscous = 8,
+    iterationsPoisson = 8,
     dt = 0.014,
     BFECC = true,
     resolution = 0.5,
@@ -75,21 +76,21 @@ export default function LiquidEther({
                 this.height = 0;
                 this.aspect = 1;
                 this.pixelRatio = 1;
-                this.isMobile = false;
-                this.breakpoint = 768;
-                this.fboWidth = null;
-                this.fboHeight = null;
-                this.time = 0;
-                this.delta = 0;
                 this.container = null;
                 this.renderer = null;
                 this.clock = null;
             }
             init(container) {
                 this.container = container;
-                this.pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+                // OPTIMIZATION: Limitar pixel ratio para evitar renders 4K innecesarios
+                this.pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
                 this.resize();
-                this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                // OPTIMIZATION: Antialias OFF ahorra recursos en simulación de fluidos
+                this.renderer = new THREE.WebGLRenderer({
+                    antialias: false,
+                    alpha: true,
+                    powerPreference: "high-performance"
+                });
                 this.renderer.autoClear = false;
                 this.renderer.setClearColor(new THREE.Color(0x000000), 0);
                 this.renderer.setPixelRatio(this.pixelRatio);
@@ -109,8 +110,7 @@ export default function LiquidEther({
                 if (this.renderer) this.renderer.setSize(this.width, this.height, false);
             }
             update() {
-                this.delta = this.clock.getDelta();
-                this.time += this.delta;
+                // Simplified update
             }
         }
         const Common = new CommonClass();
@@ -123,8 +123,6 @@ export default function LiquidEther({
                 this.diff = new THREE.Vector2();
                 this.timer = null;
                 this.container = null;
-                this.docTarget = null;
-                this.listenerTarget = null;
                 this.isHoverInside = false;
                 this.hasUserControl = false;
                 this.isAutoActive = false;
@@ -143,37 +141,23 @@ export default function LiquidEther({
             }
             init(container) {
                 this.container = container;
-                this.docTarget = container.ownerDocument || null;
-                const defaultView =
-                    (this.docTarget && this.docTarget.defaultView) || (typeof window !== 'undefined' ? window : null);
-                if (!defaultView) return;
-                this.listenerTarget = defaultView;
-                this.listenerTarget.addEventListener('mousemove', this._onMouseMove);
-                this.listenerTarget.addEventListener('touchstart', this._onTouchStart, { passive: true });
-                this.listenerTarget.addEventListener('touchmove', this._onTouchMove, { passive: true });
-                this.listenerTarget.addEventListener('touchend', this._onTouchEnd);
-                if (this.docTarget) {
-                    this.docTarget.addEventListener('mouseleave', this._onDocumentLeave);
-                }
+                window.addEventListener('mousemove', this._onMouseMove);
+                window.addEventListener('touchstart', this._onTouchStart, { passive: true });
+                window.addEventListener('touchmove', this._onTouchMove, { passive: true });
+                window.addEventListener('touchend', this._onTouchEnd);
+                document.addEventListener('mouseleave', this._onDocumentLeave);
             }
             dispose() {
-                if (this.listenerTarget) {
-                    this.listenerTarget.removeEventListener('mousemove', this._onMouseMove);
-                    this.listenerTarget.removeEventListener('touchstart', this._onTouchStart);
-                    this.listenerTarget.removeEventListener('touchmove', this._onTouchMove);
-                    this.listenerTarget.removeEventListener('touchend', this._onTouchEnd);
-                }
-                if (this.docTarget) {
-                    this.docTarget.removeEventListener('mouseleave', this._onDocumentLeave);
-                }
-                this.listenerTarget = null;
-                this.docTarget = null;
+                window.removeEventListener('mousemove', this._onMouseMove);
+                window.removeEventListener('touchstart', this._onTouchStart);
+                window.removeEventListener('touchmove', this._onTouchMove);
+                window.removeEventListener('touchend', this._onTouchEnd);
+                document.removeEventListener('mouseleave', this._onDocumentLeave);
                 this.container = null;
             }
             isPointInside(clientX, clientY) {
                 if (!this.container) return false;
                 const rect = this.container.getBoundingClientRect();
-                if (rect.width === 0 || rect.height === 0) return false;
                 return clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
             }
             updateHoverState(clientX, clientY) {
@@ -182,16 +166,11 @@ export default function LiquidEther({
             }
             setCoords(x, y) {
                 if (!this.container) return;
-                if (this.timer) window.clearTimeout(this.timer);
                 const rect = this.container.getBoundingClientRect();
-                if (rect.width === 0 || rect.height === 0) return;
                 const nx = (x - rect.left) / rect.width;
                 const ny = (y - rect.top) / rect.height;
                 this.coords.set(nx * 2 - 1, -(ny * 2 - 1));
                 this.mouseMoved = true;
-                this.timer = window.setTimeout(() => {
-                    this.mouseMoved = false;
-                }, 100);
             }
             setNormalized(nx, ny) {
                 this.coords.set(nx, ny);
@@ -201,9 +180,7 @@ export default function LiquidEther({
                 if (!this.updateHoverState(event.clientX, event.clientY)) return;
                 if (this.onInteract) this.onInteract();
                 if (this.isAutoActive && !this.hasUserControl && !this.takeoverActive) {
-                    if (!this.container) return;
                     const rect = this.container.getBoundingClientRect();
-                    if (rect.width === 0 || rect.height === 0) return;
                     const nx = (event.clientX - rect.left) / rect.width;
                     const ny = (event.clientY - rect.top) / rect.height;
                     this.takeoverFrom.copy(this.coords);
@@ -229,15 +206,10 @@ export default function LiquidEther({
                 if (event.touches.length !== 1) return;
                 const t = event.touches[0];
                 if (!this.updateHoverState(t.clientX, t.clientY)) return;
-                if (this.onInteract) this.onInteract();
                 this.setCoords(t.clientX, t.clientY);
             }
-            onTouchEnd() {
-                this.isHoverInside = false;
-            }
-            onDocumentLeave() {
-                this.isHoverInside = false;
-            }
+            onTouchEnd() { this.isHoverInside = false; }
+            onDocumentLeave() { this.isHoverInside = false; }
             update() {
                 if (this.takeoverActive) {
                     const t = (performance.now() - this.takeoverStartTime) / (this.takeoverDuration * 1000);
@@ -326,176 +298,16 @@ export default function LiquidEther({
             }
         }
 
-        const face_vert = `
-  attribute vec3 position;
-  uniform vec2 px;
-  uniform vec2 boundarySpace;
-  varying vec2 uv;
-  precision highp float;
-  void main(){
-  vec3 pos = position;
-  vec2 scale = 1.0 - boundarySpace * 2.0;
-  pos.xy = pos.xy * scale;
-  uv = vec2(0.5)+(pos.xy)*0.5;
-  gl_Position = vec4(pos, 1.0);
-}
-`;
-        const line_vert = `
-  attribute vec3 position;
-  uniform vec2 px;
-  precision highp float;
-  varying vec2 uv;
-  void main(){
-  vec3 pos = position;
-  uv = 0.5 + pos.xy * 0.5;
-  vec2 n = sign(pos.xy);
-  pos.xy = abs(pos.xy) - px * 1.0;
-  pos.xy *= n;
-  gl_Position = vec4(pos, 1.0);
-}
-`;
-        const mouse_vert = `
-    precision highp float;
-    attribute vec3 position;
-    attribute vec2 uv;
-    uniform vec2 center;
-    uniform vec2 scale;
-    uniform vec2 px;
-    varying vec2 vUv;
-    void main(){
-    vec2 pos = position.xy * scale * 2.0 * px + center;
-    vUv = uv;
-    gl_Position = vec4(pos, 0.0, 1.0);
-}
-`;
-        const advection_frag = `
-    precision highp float;
-    uniform sampler2D velocity;
-    uniform float dt;
-    uniform bool isBFECC;
-    uniform vec2 fboSize;
-    uniform vec2 px;
-    varying vec2 uv;
-    void main(){
-    vec2 ratio = max(fboSize.x, fboSize.y) / fboSize;
-    if(isBFECC == false){
-        vec2 vel = texture2D(velocity, uv).xy;
-        vec2 uv2 = uv - vel * dt * ratio;
-        vec2 newVel = texture2D(velocity, uv2).xy;
-        gl_FragColor = vec4(newVel, 0.0, 0.0);
-    } else {
-        vec2 spot_new = uv;
-        vec2 vel_old = texture2D(velocity, uv).xy;
-        vec2 spot_old = spot_new - vel_old * dt * ratio;
-        vec2 vel_new1 = texture2D(velocity, spot_old).xy;
-        vec2 spot_new2 = spot_old + vel_new1 * dt * ratio;
-        vec2 error = spot_new2 - spot_new;
-        vec2 spot_new3 = spot_new - error / 2.0;
-        vec2 vel_2 = texture2D(velocity, spot_new3).xy;
-        vec2 spot_old2 = spot_new3 - vel_2 * dt * ratio;
-        vec2 newVel2 = texture2D(velocity, spot_old2).xy; 
-        gl_FragColor = vec4(newVel2, 0.0, 0.0);
-    }
-}
-`;
-        const color_frag = `
-    precision highp float;
-    uniform sampler2D velocity;
-    uniform sampler2D palette;
-    uniform vec4 bgColor;
-    varying vec2 uv;
-    void main(){
-    vec2 vel = texture2D(velocity, uv).xy;
-    float lenv = clamp(length(vel), 0.0, 1.0);
-    vec3 c = texture2D(palette, vec2(lenv, 0.5)).rgb;
-    vec3 outRGB = mix(bgColor.rgb, c, lenv);
-    float outA = mix(bgColor.a, 1.0, lenv);
-    gl_FragColor = vec4(outRGB, outA);
-}
-`;
-        const divergence_frag = `
-    precision highp float;
-    uniform sampler2D velocity;
-    uniform float dt;
-    uniform vec2 px;
-    varying vec2 uv;
-    void main(){
-    float x0 = texture2D(velocity, uv-vec2(px.x, 0.0)).x;
-    float x1 = texture2D(velocity, uv+vec2(px.x, 0.0)).x;
-    float y0 = texture2D(velocity, uv-vec2(0.0, px.y)).y;
-    float y1 = texture2D(velocity, uv+vec2(0.0, px.y)).y;
-    float divergence = (x1 - x0 + y1 - y0) / 2.0;
-    gl_FragColor = vec4(divergence / dt);
-}
-`;
-        const externalForce_frag = `
-    precision highp float;
-    uniform vec2 force;
-    uniform vec2 center;
-    uniform vec2 scale;
-    uniform vec2 px;
-    varying vec2 vUv;
-    void main(){
-    vec2 circle = (vUv - 0.5) * 2.0;
-    float d = 1.0 - min(length(circle), 1.0);
-    d *= d;
-    gl_FragColor = vec4(force * d, 0.0, 1.0);
-}
-`;
-        const poisson_frag = `
-    precision highp float;
-    uniform sampler2D pressure;
-    uniform sampler2D divergence;
-    uniform vec2 px;
-    varying vec2 uv;
-    void main(){
-    float p0 = texture2D(pressure, uv + vec2(px.x * 2.0, 0.0)).r;
-    float p1 = texture2D(pressure, uv - vec2(px.x * 2.0, 0.0)).r;
-    float p2 = texture2D(pressure, uv + vec2(0.0, px.y * 2.0)).r;
-    float p3 = texture2D(pressure, uv - vec2(0.0, px.y * 2.0)).r;
-    float div = texture2D(divergence, uv).r;
-    float newP = (p0 + p1 + p2 + p3) / 4.0 - div;
-    gl_FragColor = vec4(newP);
-}
-`;
-        const pressure_frag = `
-    precision highp float;
-    uniform sampler2D pressure;
-    uniform sampler2D velocity;
-    uniform vec2 px;
-    uniform float dt;
-    varying vec2 uv;
-    void main(){
-    float step = 1.0;
-    float p0 = texture2D(pressure, uv + vec2(px.x * step, 0.0)).r;
-    float p1 = texture2D(pressure, uv - vec2(px.x * step, 0.0)).r;
-    float p2 = texture2D(pressure, uv + vec2(0.0, px.y * step)).r;
-    float p3 = texture2D(pressure, uv - vec2(0.0, px.y * step)).r;
-    vec2 v = texture2D(velocity, uv).xy;
-    vec2 gradP = vec2(p0 - p1, p2 - p3) * 0.5;
-    v = v - gradP * dt;
-    gl_FragColor = vec4(v, 0.0, 1.0);
-}
-`;
-        const viscous_frag = `
-    precision highp float;
-    uniform sampler2D velocity;
-    uniform sampler2D velocity_new;
-    uniform float v;
-    uniform vec2 px;
-    uniform float dt;
-    varying vec2 uv;
-    void main(){
-    vec2 old = texture2D(velocity, uv).xy;
-    vec2 new0 = texture2D(velocity_new, uv + vec2(px.x * 2.0, 0.0)).xy;
-    vec2 new1 = texture2D(velocity_new, uv - vec2(px.x * 2.0, 0.0)).xy;
-    vec2 new2 = texture2D(velocity_new, uv + vec2(0.0, px.y * 2.0)).xy;
-    vec2 new3 = texture2D(velocity_new, uv - vec2(0.0, px.y * 2.0)).xy;
-    vec2 newv = 4.0 * old + v * dt * (new0 + new1 + new2 + new3);
-    newv /= 4.0 * (1.0 + v * dt);
-    gl_FragColor = vec4(newv, 0.0, 0.0);
-}
-`;
+        const face_vert = `attribute vec3 position;uniform vec2 px;uniform vec2 boundarySpace;varying vec2 uv;precision highp float;void main(){vec3 pos=position;vec2 scale=1.0-boundarySpace*2.0;pos.xy=pos.xy*scale;uv=vec2(0.5)+(pos.xy)*0.5;gl_Position=vec4(pos,1.0);}`;
+        const line_vert = `attribute vec3 position;uniform vec2 px;precision highp float;varying vec2 uv;void main(){vec3 pos=position;uv=0.5+pos.xy*0.5;vec2 n=sign(pos.xy);pos.xy=abs(pos.xy)-px*1.0;pos.xy*=n;gl_Position=vec4(pos,1.0);}`;
+        const mouse_vert = `precision highp float;attribute vec3 position;attribute vec2 uv;uniform vec2 center;uniform vec2 scale;uniform vec2 px;varying vec2 vUv;void main(){vec2 pos=position.xy*scale*2.0*px+center;vUv=uv;gl_Position=vec4(pos,0.0,1.0);}`;
+        const advection_frag = `precision highp float;uniform sampler2D velocity;uniform float dt;uniform bool isBFECC;uniform vec2 fboSize;uniform vec2 px;varying vec2 uv;void main(){vec2 ratio=max(fboSize.x,fboSize.y)/fboSize;if(isBFECC==false){vec2 vel=texture2D(velocity,uv).xy;vec2 uv2=uv-vel*dt*ratio;vec2 newVel=texture2D(velocity,uv2).xy;gl_FragColor=vec4(newVel,0.0,0.0);}else{vec2 spot_new=uv;vec2 vel_old=texture2D(velocity,uv).xy;vec2 spot_old=spot_new-vel_old*dt*ratio;vec2 vel_new1=texture2D(velocity,spot_old).xy;vec2 spot_new2=spot_old+vel_new1*dt*ratio;vec2 error=spot_new2-spot_new;vec2 spot_new3=spot_new-error/2.0;vec2 vel_2=texture2D(velocity,spot_new3).xy;vec2 spot_old2=spot_new3-vel_2*dt*ratio;vec2 newVel2=texture2D(velocity,spot_old2).xy;gl_FragColor=vec4(newVel2,0.0,0.0);}}`;
+        const color_frag = `precision highp float;uniform sampler2D velocity;uniform sampler2D palette;uniform vec4 bgColor;varying vec2 uv;void main(){vec2 vel=texture2D(velocity,uv).xy;float lenv=clamp(length(vel),0.0,1.0);vec3 c=texture2D(palette,vec2(lenv,0.5)).rgb;vec3 outRGB=mix(bgColor.rgb,c,lenv);float outA=mix(bgColor.a,1.0,lenv);gl_FragColor=vec4(outRGB,outA);}`;
+        const divergence_frag = `precision highp float;uniform sampler2D velocity;uniform float dt;uniform vec2 px;varying vec2 uv;void main(){float x0=texture2D(velocity,uv-vec2(px.x,0.0)).x;float x1=texture2D(velocity,uv+vec2(px.x,0.0)).x;float y0=texture2D(velocity,uv-vec2(0.0,px.y)).y;float y1=texture2D(velocity,uv+vec2(0.0,px.y)).y;float divergence=(x1-x0+y1-y0)/2.0;gl_FragColor=vec4(divergence/dt);}`;
+        const externalForce_frag = `precision highp float;uniform vec2 force;uniform vec2 center;uniform vec2 scale;uniform vec2 px;varying vec2 vUv;void main(){vec2 circle=(vUv-0.5)*2.0;float d=1.0-min(length(circle),1.0);d*=d;gl_FragColor=vec4(force*d,0.0,1.0);}`;
+        const poisson_frag = `precision highp float;uniform sampler2D pressure;uniform sampler2D divergence;uniform vec2 px;varying vec2 uv;void main(){float p0=texture2D(pressure,uv+vec2(px.x*2.0,0.0)).r;float p1=texture2D(pressure,uv-vec2(px.x*2.0,0.0)).r;float p2=texture2D(pressure,uv+vec2(0.0,px.y*2.0)).r;float p3=texture2D(pressure,uv-vec2(0.0,px.y*2.0)).r;float div=texture2D(divergence,uv).r;float newP=(p0+p1+p2+p3)/4.0-div;gl_FragColor=vec4(newP);}`;
+        const pressure_frag = `precision highp float;uniform sampler2D pressure;uniform sampler2D velocity;uniform vec2 px;uniform float dt;varying vec2 uv;void main(){float step=1.0;float p0=texture2D(pressure,uv+vec2(px.x*step,0.0)).r;float p1=texture2D(pressure,uv-vec2(px.x*step,0.0)).r;float p2=texture2D(pressure,uv+vec2(0.0,px.y*step)).r;float p3=texture2D(pressure,uv-vec2(0.0,px.y*step)).r;vec2 v=texture2D(velocity,uv).xy;vec2 gradP=vec2(p0-p1,p2-p3)*0.5;v=v-gradP*dt;gl_FragColor=vec4(v,0.0,1.0);}`;
+        const viscous_frag = `precision highp float;uniform sampler2D velocity;uniform sampler2D velocity_new;uniform float v;uniform vec2 px;uniform float dt;varying vec2 uv;void main(){vec2 old=texture2D(velocity,uv).xy;vec2 new0=texture2D(velocity_new,uv+vec2(px.x*2.0,0.0)).xy;vec2 new1=texture2D(velocity_new,uv-vec2(px.x*2.0,0.0)).xy;vec2 new2=texture2D(velocity_new,uv+vec2(0.0,px.y*2.0)).xy;vec2 new3=texture2D(velocity_new,uv-vec2(0.0,px.y*2.0)).xy;vec2 newv=4.0*old+v*dt*(new0+new1+new2+new3);newv/=4.0*(1.0+v*dt);gl_FragColor=vec4(newv,0.0,0.0);}`;
 
         class ShaderPass {
             constructor(props) {
@@ -550,9 +362,7 @@ export default function LiquidEther({
             }
             createBoundary() {
                 const boundaryG = new THREE.BufferGeometry();
-                const vertices_boundary = new Float32Array([
-                    -1, -1, 0, -1, 1, 0, -1, 1, 0, 1, 1, 0, 1, 1, 0, 1, -1, 0, 1, -1, 0, -1, -1, 0
-                ]);
+                const vertices_boundary = new Float32Array([-1, -1, 0, -1, 1, 0, -1, 1, 0, 1, 1, 0, 1, 1, 0, 1, -1, 0, 1, -1, 0, -1, -1, 0]);
                 boundaryG.setAttribute('position', new THREE.BufferAttribute(vertices_boundary, 3));
                 const boundaryM = new THREE.RawShaderMaterial({
                     vertexShader: line_vert,
@@ -598,14 +408,8 @@ export default function LiquidEther({
                 const forceY = (Mouse.diff.y / 2) * props.mouse_force;
                 const cursorSizeX = props.cursor_size * props.cellScale.x;
                 const cursorSizeY = props.cursor_size * props.cellScale.y;
-                const centerX = Math.min(
-                    Math.max(Mouse.coords.x, -1 + cursorSizeX + props.cellScale.x * 2),
-                    1 - cursorSizeX - props.cellScale.x * 2
-                );
-                const centerY = Math.min(
-                    Math.max(Mouse.coords.y, -1 + cursorSizeY + props.cellScale.y * 2),
-                    1 - cursorSizeY - props.cellScale.y * 2
-                );
+                const centerX = Math.min(Math.max(Mouse.coords.x, -1 + cursorSizeX + props.cellScale.x * 2), 1 - cursorSizeX - props.cellScale.x * 2);
+                const centerY = Math.min(Math.max(Mouse.coords.y, -1 + cursorSizeY + props.cellScale.y * 2), 1 - cursorSizeY - props.cellScale.y * 2);
                 const uniforms = this.mouse.material.uniforms;
                 uniforms.force.value.set(forceX, forceY);
                 uniforms.center.value.set(centerX, centerY);
@@ -639,13 +443,8 @@ export default function LiquidEther({
                 let fbo_in, fbo_out;
                 this.uniforms.v.value = viscous;
                 for (let i = 0; i < iterations; i++) {
-                    if (i % 2 === 0) {
-                        fbo_in = this.props.output0;
-                        fbo_out = this.props.output1;
-                    } else {
-                        fbo_in = this.props.output1;
-                        fbo_out = this.props.output0;
-                    }
+                    if (i % 2 === 0) { fbo_in = this.props.output0; fbo_out = this.props.output1; }
+                    else { fbo_in = this.props.output1; fbo_out = this.props.output0; }
                     this.uniforms.velocity_new.value = fbo_in.texture;
                     this.props.output = fbo_out;
                     this.uniforms.dt.value = dt;
@@ -700,13 +499,8 @@ export default function LiquidEther({
             update({ iterations }) {
                 let p_in, p_out;
                 for (let i = 0; i < iterations; i++) {
-                    if (i % 2 === 0) {
-                        p_in = this.props.output0;
-                        p_out = this.props.output1;
-                    } else {
-                        p_in = this.props.output1;
-                        p_out = this.props.output0;
-                    }
+                    if (i % 2 === 0) { p_in = this.props.output0; p_out = this.props.output1; }
+                    else { p_in = this.props.output1; p_out = this.props.output0; }
                     this.uniforms.pressure.value = p_in.texture;
                     this.props.output = p_out;
                     super.update();
@@ -742,27 +536,12 @@ export default function LiquidEther({
 
         class Simulation {
             constructor(options) {
-                this.options = {
-                    iterations_poisson: 32,
-                    iterations_viscous: 32,
-                    mouse_force: 20,
-                    resolution: 0.5,
-                    cursor_size: 100,
-                    viscous: 30,
-                    isBounce: false,
-                    dt: 0.014,
-                    isViscous: false,
-                    BFECC: true,
-                    ...options
-                };
+                this.options = options;
                 this.fbos = {
-                    vel_0: null,
-                    vel_1: null,
-                    vel_viscous0: null,
-                    vel_viscous1: null,
+                    vel_0: null, vel_1: null,
+                    vel_viscous0: null, vel_viscous1: null,
                     div: null,
-                    pressure_0: null,
-                    pressure_1: null
+                    pressure_0: null, pressure_1: null
                 };
                 this.fboSize = new THREE.Vector2();
                 this.cellScale = new THREE.Vector2();
@@ -775,8 +554,8 @@ export default function LiquidEther({
                 this.createShaderPass();
             }
             getFloatType() {
-                const isIOS = /(iPad|iPhone|iPod)/i.test(navigator.userAgent);
-                return isIOS ? THREE.HalfFloatType : THREE.FloatType;
+                // OPTIMIZATION: Usar HalfFloatType siempre que sea posible para reducir ancho de banda
+                return THREE.HalfFloatType;
             }
             createAllFBO() {
                 const type = this.getFloatType();
@@ -794,53 +573,28 @@ export default function LiquidEther({
                 }
             }
             createShaderPass() {
-                this.advection = new Advection({
-                    cellScale: this.cellScale,
-                    fboSize: this.fboSize,
-                    dt: this.options.dt,
-                    src: this.fbos.vel_0,
-                    dst: this.fbos.vel_1
-                });
-                this.externalForce = new ExternalForce({
-                    cellScale: this.cellScale,
-                    cursor_size: this.options.cursor_size,
-                    dst: this.fbos.vel_1
-                });
-                this.viscous = new Viscous({
-                    cellScale: this.cellScale,
-                    boundarySpace: this.boundarySpace,
-                    viscous: this.options.viscous,
-                    src: this.fbos.vel_1,
-                    dst: this.fbos.vel_viscous1,
-                    dst_: this.fbos.vel_viscous0,
-                    dt: this.options.dt
-                });
-                this.divergence = new Divergence({
-                    cellScale: this.cellScale,
-                    boundarySpace: this.boundarySpace,
-                    src: this.fbos.vel_viscous0,
-                    dst: this.fbos.div,
-                    dt: this.options.dt
-                });
-                this.poisson = new Poisson({
-                    cellScale: this.cellScale,
-                    boundarySpace: this.boundarySpace,
-                    src: this.fbos.div,
-                    dst: this.fbos.pressure_1,
-                    dst_: this.fbos.pressure_0
-                });
-                this.pressure = new Pressure({
-                    cellScale: this.cellScale,
-                    boundarySpace: this.boundarySpace,
-                    src_p: this.fbos.pressure_0,
-                    src_v: this.fbos.vel_viscous0,
-                    dst: this.fbos.vel_0,
-                    dt: this.options.dt
-                });
+                this.advection = new Advection({ cellScale: this.cellScale, fboSize: this.fboSize, dt: this.options.dt, src: this.fbos.vel_0, dst: this.fbos.vel_1 });
+                this.externalForce = new ExternalForce({ cellScale: this.cellScale, cursor_size: this.options.cursor_size, dst: this.fbos.vel_1 });
+                this.viscous = new Viscous({ cellScale: this.cellScale, boundarySpace: this.boundarySpace, viscous: this.options.viscous, src: this.fbos.vel_1, dst: this.fbos.vel_viscous1, dst_: this.fbos.vel_viscous0, dt: this.options.dt });
+                this.divergence = new Divergence({ cellScale: this.cellScale, boundarySpace: this.boundarySpace, src: this.fbos.vel_viscous0, dst: this.fbos.div, dt: this.options.dt });
+                this.poisson = new Poisson({ cellScale: this.cellScale, boundarySpace: this.boundarySpace, src: this.fbos.div, dst: this.fbos.pressure_1, dst_: this.fbos.pressure_0 });
+                this.pressure = new Pressure({ cellScale: this.cellScale, boundarySpace: this.boundarySpace, src_p: this.fbos.pressure_0, src_v: this.fbos.vel_viscous0, dst: this.fbos.vel_0, dt: this.options.dt });
             }
             calcSize() {
-                const width = Math.max(1, Math.round(this.options.resolution * Common.width));
-                const height = Math.max(1, Math.round(this.options.resolution * Common.height));
+                // OPTIMIZATION: Limitar resolución máxima a 1024px para evitar colapso en pantallas 4K/Retina
+                const MAX_DIMENSION = 1024;
+                let width = Math.round(this.options.resolution * Common.width);
+                let height = Math.round(this.options.resolution * Common.height);
+
+                if (width > MAX_DIMENSION) {
+                    const ratio = height / width;
+                    width = MAX_DIMENSION;
+                    height = Math.round(MAX_DIMENSION * ratio);
+                }
+
+                width = Math.max(16, width);
+                height = Math.max(16, height);
+
                 const px_x = 1.0 / width;
                 const px_y = 1.0 / height;
                 this.cellScale.set(px_x, px_y);
@@ -853,43 +607,38 @@ export default function LiquidEther({
                 }
             }
             update() {
-                if (this.options.isBounce) {
-                    this.boundarySpace.set(0, 0);
-                } else {
-                    this.boundarySpace.copy(this.cellScale);
-                }
-                this.advection.update({
-                    dt: this.options.dt,
-                    isBounce: this.options.isBounce,
-                    BFECC: this.options.BFECC
-                });
-                this.externalForce.update({
-                    cursor_size: this.options.cursor_size,
-                    mouse_force: this.options.mouse_force,
-                    cellScale: this.cellScale
-                });
+                if (this.options.isBounce) this.boundarySpace.set(0, 0);
+                else this.boundarySpace.copy(this.cellScale);
+
+                this.advection.update({ dt: this.options.dt, isBounce: this.options.isBounce, BFECC: this.options.BFECC });
+                this.externalForce.update({ cursor_size: this.options.cursor_size, mouse_force: this.options.mouse_force, cellScale: this.cellScale });
+
                 let vel = this.fbos.vel_1;
                 if (this.options.isViscous) {
-                    vel = this.viscous.update({
-                        viscous: this.options.viscous,
-                        iterations: this.options.iterations_viscous,
-                        dt: this.options.dt
-                    });
+                    vel = this.viscous.update({ viscous: this.options.viscous, iterations: this.options.iterations_viscous, dt: this.options.dt });
                 }
+
                 this.divergence.update({ vel });
-                const pressure = this.poisson.update({
-                    iterations: this.options.iterations_poisson
-                });
+                const pressure = this.poisson.update({ iterations: this.options.iterations_poisson });
                 this.pressure.update({ vel, pressure });
             }
         }
 
         class Output {
-            constructor() {
-                this.init();
-            }
+            constructor() { this.init(); }
             init() {
-                this.simulation = new Simulation();
+                this.simulation = new Simulation({
+                    iterations_poisson: iterationsPoisson,
+                    iterations_viscous: iterationsViscous,
+                    mouse_force: mouseForce,
+                    resolution,
+                    cursor_size: cursorSize,
+                    viscous,
+                    isBounce,
+                    dt,
+                    isViscous,
+                    BFECC
+                });
                 this.scene = new THREE.Scene();
                 this.camera = new THREE.Camera();
                 this.output = new THREE.Mesh(
@@ -909,30 +658,17 @@ export default function LiquidEther({
                 );
                 this.scene.add(this.output);
             }
-            addScene(mesh) {
-                this.scene.add(mesh);
-            }
-            resize() {
-                this.simulation.resize();
-            }
-            render() {
-                Common.renderer.setRenderTarget(null);
-                Common.renderer.render(this.scene, this.camera);
-            }
-            update() {
-                this.simulation.update();
-                this.render();
-            }
+            resize() { this.simulation.resize(); }
+            render() { Common.renderer.setRenderTarget(null); Common.renderer.render(this.scene, this.camera); }
+            update() { this.simulation.update(); this.render(); }
         }
 
         class WebGLManager {
             constructor(props) {
                 this.props = props;
-                // Configuración de FPS
                 this.targetFps = props.fps || 0;
                 this.frameInterval = this.targetFps > 0 ? 1000 / this.targetFps : 0;
                 this.lastFrameTime = performance.now();
-
                 Common.init(props.$wrapper);
                 Mouse.init(props.$wrapper);
                 Mouse.autoIntensity = props.autoIntensity;
@@ -943,80 +679,37 @@ export default function LiquidEther({
                     if (this.autoDriver) this.autoDriver.forceStop();
                 };
                 this.autoDriver = new AutoDriver(Mouse, this, {
-                    enabled: props.autoDemo,
-                    speed: props.autoSpeed,
-                    resumeDelay: props.autoResumeDelay,
-                    rampDuration: props.autoRampDuration
+                    enabled: props.autoDemo, speed: props.autoSpeed,
+                    resumeDelay: props.autoResumeDelay, rampDuration: props.autoRampDuration
                 });
                 this.init();
                 this._loop = this.loop.bind(this);
                 this._resize = this.resize.bind(this);
                 window.addEventListener('resize', this._resize);
                 this._onVisibility = () => {
-                    const hidden = document.hidden;
-                    if (hidden) {
-                        this.pause();
-                    } else if (isVisibleRef.current) {
-                        this.start();
-                    }
+                    if (document.hidden) this.pause();
+                    else if (isVisibleRef.current) this.start();
                 };
                 document.addEventListener('visibilitychange', this._onVisibility);
                 this.running = false;
             }
-            init() {
-                this.props.$wrapper.prepend(Common.renderer.domElement);
-                this.output = new Output();
-            }
-            resize() {
-                Common.resize();
-                this.output.resize();
-            }
-            render() {
-                if (this.autoDriver) this.autoDriver.update();
-                Mouse.update();
-                Common.update();
-                this.output.update();
-            }
+            init() { this.props.$wrapper.prepend(Common.renderer.domElement); this.output = new Output(); }
+            resize() { Common.resize(); this.output.resize(); }
+            render() { if (this.autoDriver) this.autoDriver.update(); Mouse.update(); Common.update(); this.output.update(); }
             loop() {
                 if (!this.running) return;
-
                 rafRef.current = requestAnimationFrame(this._loop);
-
-                // Si FPS es 0 o menor, ejecutamos lo más rápido posible (comportamiento original)
-                if (this.targetFps <= 0) {
-                    this.render();
-                    return;
-                }
-
-                // Lógica para limitar FPS
+                if (this.targetFps <= 0) { this.render(); return; }
                 const now = performance.now();
                 const elapsed = now - this.lastFrameTime;
-
                 if (elapsed > this.frameInterval) {
-                    // Ajuste para el "drift" (deslizamiento de tiempo)
                     this.lastFrameTime = now - (elapsed % this.frameInterval);
                     this.render();
                 }
             }
-            setFps(newFps) {
-                this.targetFps = newFps;
-                this.frameInterval = this.targetFps > 0 ? 1000 / this.targetFps : 0;
-                // Reseteamos el lastFrameTime para evitar saltos grandes al cambiar FPS
-                this.lastFrameTime = performance.now();
-            }
-            start() {
-                if (this.running) return;
-                this.running = true;
-                this.lastFrameTime = performance.now(); // Resetear tiempo al iniciar
-                this._loop();
-            }
-            pause() {
-                this.running = false;
-                if (rafRef.current) {
-                    cancelAnimationFrame(rafRef.current);
-                    rafRef.current = null;
-                }
-            }
+            setFps(newFps) { this.targetFps = newFps; this.frameInterval = this.targetFps > 0 ? 1000 / this.targetFps : 0; this.lastFrameTime = performance.now(); }
+            start() { if (this.running) return; this.running = true; this.lastFrameTime = performance.now(); this._loop(); }
+            pause() { this.running = false; if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null; } }
             dispose() {
                 try {
                     window.removeEventListener('resize', this._resize);
@@ -1027,9 +720,7 @@ export default function LiquidEther({
                         if (canvas && canvas.parentNode) canvas.parentNode.removeChild(canvas);
                         Common.renderer.dispose();
                     }
-                } catch (e) {
-                    void 0;
-                }
+                } catch (e) { void 0; }
             }
         }
 
@@ -1039,55 +730,20 @@ export default function LiquidEther({
 
         const webgl = new WebGLManager({
             $wrapper: container,
-            fps, // Pasamos el FPS inicial
-            autoDemo,
-            autoSpeed,
-            autoIntensity,
-            takeoverDuration,
-            autoResumeDelay,
-            autoRampDuration
+            fps, autoDemo, autoSpeed, autoIntensity,
+            takeoverDuration, autoResumeDelay, autoRampDuration
         });
         webglRef.current = webgl;
-
-        const applyOptionsFromProps = () => {
-            if (!webglRef.current) return;
-            const sim = webglRef.current.output?.simulation;
-            if (!sim) return;
-            const prevRes = sim.options.resolution;
-            Object.assign(sim.options, {
-                mouse_force: mouseForce,
-                cursor_size: cursorSize,
-                isViscous,
-                viscous,
-                iterations_viscous: iterationsViscous,
-                iterations_poisson: iterationsPoisson,
-                dt,
-                BFECC,
-                resolution,
-                isBounce
-            });
-            if (resolution !== prevRes) {
-                sim.resize();
-            }
-        };
-        applyOptionsFromProps();
-
         webgl.start();
 
-        const io = new IntersectionObserver(
-            entries => {
-                const entry = entries[0];
-                const isVisible = entry.isIntersecting && entry.intersectionRatio > 0;
-                isVisibleRef.current = isVisible;
-                if (!webglRef.current) return;
-                if (isVisible && !document.hidden) {
-                    webglRef.current.start();
-                } else {
-                    webglRef.current.pause();
-                }
-            },
-            { threshold: [0, 0.01, 0.1] }
-        );
+        const io = new IntersectionObserver(entries => {
+            const entry = entries[0];
+            const isVisible = entry.isIntersecting && entry.intersectionRatio > 0;
+            isVisibleRef.current = isVisible;
+            if (!webglRef.current) return;
+            if (isVisible && !document.hidden) webglRef.current.start();
+            else webglRef.current.pause();
+        }, { threshold: [0, 0.01, 0.1] });
         io.observe(container);
         intersectionObserverRef.current = io;
 
@@ -1104,55 +760,28 @@ export default function LiquidEther({
 
         return () => {
             if (rafRef.current) cancelAnimationFrame(rafRef.current);
-            if (resizeObserverRef.current) {
-                try {
-                    resizeObserverRef.current.disconnect();
-                } catch (e) {
-                    void 0;
-                }
-            }
-            if (intersectionObserverRef.current) {
-                try {
-                    intersectionObserverRef.current.disconnect();
-                } catch (e) {
-                    void 0;
-                }
-            }
-            if (webglRef.current) {
-                webglRef.current.dispose();
-            }
+            if (resizeObserverRef.current) resizeObserverRef.current.disconnect();
+            if (intersectionObserverRef.current) intersectionObserverRef.current.disconnect();
+            if (webglRef.current) webglRef.current.dispose();
             webglRef.current = null;
         };
-    }, [
-        // NOTA: 'fps' no está aquí para evitar reinicializar todo el webgl manager
-        // Se maneja en el segundo useEffect
-        colors // Si cambian los colores, se reinicia todo (es costoso cambiar texturas)
-    ]);
+    }, [colors]);
 
     useEffect(() => {
         const webgl = webglRef.current;
         if (!webgl) return;
         const sim = webgl.output?.simulation;
         if (!sim) return;
+
+        if (webgl.setFps) webgl.setFps(fps);
+
         const prevRes = sim.options.resolution;
-
-        // Actualizar FPS dinámicamente
-        if (webgl.setFps) {
-            webgl.setFps(fps);
-        }
-
         Object.assign(sim.options, {
-            mouse_force: mouseForce,
-            cursor_size: cursorSize,
-            isViscous,
-            viscous,
-            iterations_viscous: iterationsViscous,
-            iterations_poisson: iterationsPoisson,
-            dt,
-            BFECC,
-            resolution,
-            isBounce
+            mouse_force: mouseForce, cursor_size: cursorSize, isViscous, viscous,
+            iterations_viscous: iterationsViscous, iterations_poisson: iterationsPoisson,
+            dt, BFECC, resolution, isBounce
         });
+
         if (webgl.autoDriver) {
             webgl.autoDriver.enabled = autoDemo;
             webgl.autoDriver.speed = autoSpeed;
@@ -1163,28 +792,13 @@ export default function LiquidEther({
                 webgl.autoDriver.mouse.takeoverDuration = takeoverDuration;
             }
         }
-        if (resolution !== prevRes) {
-            sim.resize();
-        }
-    }, [
-        fps, // Agregado aquí
-        mouseForce,
-        cursorSize,
-        isViscous,
-        viscous,
-        iterationsViscous,
-        iterationsPoisson,
-        dt,
-        BFECC,
-        resolution,
-        isBounce,
-        autoDemo,
-        autoSpeed,
-        autoIntensity,
-        takeoverDuration,
-        autoResumeDelay,
-        autoRampDuration
-    ]);
+
+        if (resolution !== prevRes) sim.resize();
+    }, [fps, mouseForce, cursorSize, isViscous, viscous, iterationsViscous, iterationsPoisson, dt, BFECC, resolution, isBounce, autoDemo, autoSpeed, autoIntensity, takeoverDuration, autoResumeDelay, autoRampDuration]);
 
     return <div ref={mountRef} className={`liquid-ether-container ${className || ''}`} style={style} />;
 }
+
+// Exportación limpia con memo para evitar re-renders
+const LiquidEther = memo(LiquidEtherImpl);
+export default LiquidEther;
